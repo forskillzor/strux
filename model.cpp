@@ -1,5 +1,5 @@
 #include "model.h"
-#include "btnode.h"
+#include "modelnode.h"
 
 /*******************************
  * Interface Model

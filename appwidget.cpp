@@ -25,8 +25,3 @@ AppWidget::AppWidget(QApplication *app) : QWidget(nullptr), application(app)
 
     QObject::connect(quitButton, &QPushButton::clicked, qApp, &QCoreApplication::quit);
 }
-
-void AppWidget::quitApp()
-{
-}
-

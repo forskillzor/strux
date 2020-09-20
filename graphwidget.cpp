@@ -62,7 +62,6 @@
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
-    algorithm = new Algorithm(model);
     aScene = new QGraphicsScene(this);
     aScene->setItemIndexMethod(QGraphicsScene::NoIndex);
     aScene->setSceneRect(-400, -400, 800, 800);
@@ -102,6 +101,12 @@ void GraphWidget::itemMoved()
 {
     if (!timerId)
         timerId = startTimer(1000 / 25);
+}
+
+void GraphWidget::apply()
+{
+    // TODO
+    // apply algorithm
 }
 //! [2]
 

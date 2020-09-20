@@ -57,6 +57,7 @@
 class Model;
 class BTNode;
 class ViewNode;
+class ViewModel;
 class Algorithm;
 
 //! [0]
@@ -68,6 +69,7 @@ public:
     GraphWidget(QWidget *parent = nullptr);
 
     void itemMoved();
+    void apply();
 
 public slots:
     void shuffle();
@@ -88,14 +90,16 @@ protected:
 
 private:
     int timerId = 0;
-    ViewNode *centerNode;
-    QGraphicsScene *aScene;
+    ViewNode *centerNode = nullptr;
+    QGraphicsScene *aScene = nullptr;
 
     QVector<QString> labels{ "Вадик", "Антоха", "Данил", "Орел", "Леха" };
     QVector<ViewNode *> nodes;
     QVector<Edge *> edges;
-    Model *model;
-    Algorithm *algorithm;
+
+    ViewModel *viewModel = nullptr;
+    Model *model = nullptr;
+    Algorithm *algorithm = nullptr;
 };
 //! [0]
 

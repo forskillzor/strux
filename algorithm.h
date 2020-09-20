@@ -12,7 +12,7 @@ class Algorithm
 {
 public:
     Algorithm(Model *pmodel);
-    virtual void apply();
+    virtual void apply() = 0;
 private:
     Model *model = nullptr;
 };

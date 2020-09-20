@@ -3,7 +3,7 @@
 
 #include <QVector>
 
-class BTNode;
+class ModelNode;
 
 /*******************************
  * Interface Model
@@ -11,14 +11,14 @@ class BTNode;
 
 class Model
 {
-    BTNode *root;
+    ModelNode *root;
 
     QVector<int> data {3, 5, 1, 9, 7, 6, 4, 8, 2, 0};
-    QVector<BTNode*> nodes;
+    QVector<ModelNode*> nodes;
 public:
     Model();
 
-    virtual void addItem(BTNode *node);
+    virtual void addItem(ModelNode *node);
     QVector<int>& getData();
 
 };

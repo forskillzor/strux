@@ -9,3 +9,8 @@ ViewTree::ViewTree() : ViewModel()
 {
 
 }
+
+void ViewTree::apply()
+{
+
+}

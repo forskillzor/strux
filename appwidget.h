@@ -17,8 +17,6 @@ class AppWidget : public QWidget
     QPushButton *quitButton;
 public:
     explicit AppWidget(QApplication *app);
-
-    void quitApp();
 };
 
 #endif // APPWIDGET_H

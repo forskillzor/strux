@@ -3,21 +3,21 @@ QT += widgets
 HEADERS += \
         algorithm.h \
         appwidget.h \
-        btnode.h \
         edge.h \
         graphwidget.h \
         model.h \
+        modelnode.h \
         viewmodel.h \
         viewnode.h
 
 SOURCES += \
         algorithm.cpp \
         appwidget.cpp \
-        btnode.cpp \
         edge.cpp \
         graphwidget.cpp \
         main.cpp \
         model.cpp \
+        modelnode.cpp \
         viewmodel.cpp \
         viewnode.cpp
 

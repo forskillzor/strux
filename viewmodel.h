@@ -9,6 +9,7 @@ class ViewModel
 {
 public:
     ViewModel();
+    virtual void apply() = 0;
 };
 
 /*******************************
@@ -18,6 +19,7 @@ public:
 class ViewTree : public ViewModel
 {
 public: ViewTree();
+    virtual void apply() override;
 };
 
 #endif // VIEWMODEL_H

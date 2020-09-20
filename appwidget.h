@@ -2,15 +2,23 @@
 #define APPWIDGET_H
 
 #include <QWidget>
+#include <QPushButton>
 
 class AppWidget : public QWidget
 {
     Q_OBJECT
+    QApplication *application = nullptr;
+
+    QPushButton *applyButton;
+    QPushButton *resetButton;
+    QPushButton *addNodeButton;
+    QPushButton *removeNodeButton;
+    QPushButton *nextStepButton;
+    QPushButton *quitButton;
 public:
-    explicit AppWidget(QWidget *parent = nullptr);
+    explicit AppWidget(QApplication *app);
 
-signals:
-
+    void quitApp();
 };
 
 #endif // APPWIDGET_H

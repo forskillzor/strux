@@ -4,3 +4,8 @@ ViewModel::ViewModel()
 {
 
 }
+
+ViewTree::ViewTree() : ViewModel()
+{
+
+}

@@ -8,10 +8,18 @@
 Model::Model()
 {
     for (int val : data)
-        nodes.push_back(new BTNode(val));
+        nodes.push_back(ModelNode::createNode(NodeType::Tree, val));
 }
 
-void Model::addItem(BTNode *node)
+Model *Model::createModel(ModelType type)
+{
+    switch (type) {
+        case ModelType::Tree:
+            return new TreeModel();
+    }
+}
+
+void Model::addItem(ModelNode *node)
 {
 //    if (root == nullptr)
 //        root = node;

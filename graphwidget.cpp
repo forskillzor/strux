@@ -47,16 +47,14 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
+#include <math.h>
+#include <QKeyEvent>
+#include <QRandomGenerator>
 
 #include "graphwidget.h"
 #include "edge.h"
 #include "viewnode.h"
-
-#include <math.h>
-
 #include "algorithm.h"
-#include <QKeyEvent>
-#include <QRandomGenerator>
 
 //! [0]
 GraphWidget::GraphWidget(QWidget *parent)
@@ -80,12 +78,12 @@ GraphWidget::GraphWidget(QWidget *parent)
         nodes.push_back(new ViewNode(this, label));
     }
     for(int i = 1; i < nodes.length(); ++i) {
-        edges.push_back(new Edge(nodes[i-1], nodes[i]));
+        edges.push_back(new ViewEdge(nodes[i-1], nodes[i]));
     }
     for (ViewNode *node : nodes) {
         aScene->addItem(node);
     }
-    for (Edge *edge : edges) {
+    for (ViewEdge *edge : edges) {
         aScene->addItem(edge);
     }
     qreal x(-200);

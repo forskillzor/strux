@@ -55,7 +55,7 @@
 #include <QtMath>
 
 //! [0]
-Edge::Edge(ViewNode *sourceNode, ViewNode *destNode)
+ViewEdge::ViewEdge(ViewNode *sourceNode, ViewNode *destNode)
     : source(sourceNode), dest(destNode)
 {
     setAcceptedMouseButtons(Qt::NoButton);
@@ -66,19 +66,19 @@ Edge::Edge(ViewNode *sourceNode, ViewNode *destNode)
 //! [0]
 
 //! [1]
-ViewNode *Edge::sourceNode() const
+ViewNode *ViewEdge::sourceNode() const
 {
     return source;
 }
 
-ViewNode *Edge::destNode() const
+ViewNode *ViewEdge::destNode() const
 {
     return dest;
 }
 //! [1]
 
 //! [2]
-void Edge::adjust()
+void ViewEdge::adjust()
 {
     if (!source || !dest)
         return;
@@ -99,7 +99,7 @@ void Edge::adjust()
 //! [2]
 
 //! [3]
-QRectF Edge::boundingRect() const
+QRectF ViewEdge::boundingRect() const
 {
     if (!source || !dest)
         return QRectF();
@@ -115,7 +115,7 @@ QRectF Edge::boundingRect() const
 //! [3]
 
 //! [4]
-void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void ViewEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     if (!source || !dest)
         return;

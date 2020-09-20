@@ -9,6 +9,14 @@ ModelNode::ModelNode(ModelNode *pparent, int val) : parent(pparent), value(val)
 
 }
 
+ModelNode *ModelNode::createNode(NodeType type, int val)
+{
+    switch (type) {
+    case NodeType::Tree:
+        return new BTNode(val);
+    }
+}
+
 /*******************************
  * Implementation
  *******************************/

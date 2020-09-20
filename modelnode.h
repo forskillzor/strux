@@ -7,6 +7,8 @@
  * Interface ModelNode
  *******************************/
 
+enum class NodeType{Tree = 1};
+
 class ModelNode {
 protected:
     Algorithm *algorithm;
@@ -14,6 +16,7 @@ protected:
     int value;
 public:
     ModelNode(ModelNode *pparent = nullptr, int val = 0);
+    static ModelNode* createNode(NodeType type, int val);
     virtual void addChild(ModelNode*v) = 0;
     virtual int getValue() = 0;
     virtual void setValue(int) = 0;

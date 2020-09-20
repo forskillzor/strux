@@ -95,7 +95,7 @@ private:
 
     QVector<QString> labels{ "Вадик", "Антоха", "Данил", "Орел", "Леха" };
     QVector<ViewNode *> nodes;
-    QVector<Edge *> edges;
+    QVector<ViewEdge *> edges;
 
     ViewModel *viewModel = nullptr;
     Model *model = nullptr;

@@ -3,6 +3,8 @@
 
 #include <QVector>
 
+enum class ModelType { Tree = 1 };
+
 class ModelNode;
 
 /*******************************
@@ -18,6 +20,7 @@ class Model
 public:
     Model();
 
+    Model* createModel(ModelType type);
     virtual void addItem(ModelNode *node);
     QVector<int>& getData();
 

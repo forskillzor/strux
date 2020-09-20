@@ -55,7 +55,8 @@
 #include <QVector>
 #include <QString>
 
-class Edge;
+class ViewNode;
+class ViewEdge;
 class GraphWidget;
 
 //! [0]
@@ -65,8 +66,8 @@ public:
     ViewNode(GraphWidget *graphWidget, QString &label);
 
     QString label;
-    void addEdge(Edge *edge);
-    QVector<Edge *> edges() const;
+    void addEdge(ViewEdge *edge);
+    QVector<ViewEdge *> edges() const;
 
     enum { Type = UserType + 1 };
     int type() const override { return Type; }
@@ -89,7 +90,7 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
-    QVector<Edge *> edgeList;
+    QVector<ViewEdge *> edgeList;
     QPointF newPos;
     GraphWidget *graph;
     int width;

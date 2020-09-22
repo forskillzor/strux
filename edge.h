@@ -3,15 +3,15 @@
 
 #include <QGraphicsItem>
 
-class Node;
+class ViewNode;
 
 class Edge : public QGraphicsItem
 {
 public:
-    Edge(Node *sourceNode, Node *destNode);
+    Edge(ViewNode *sourceNode, ViewNode *destNode);
 
-    Node *sourceNode() const;
-    Node *destNode() const;
+    ViewNode *sourceNode() const;
+    ViewNode *destNode() const;
 
     void adjust();
 
@@ -23,7 +23,7 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
-    Node *source, *dest;
+    ViewNode *source, *dest;
 
     QPointF sourcePoint;
     QPointF destPoint;

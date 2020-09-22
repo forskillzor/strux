@@ -2,38 +2,76 @@
 #define TREEMODEL_H
 
 #include <QVector>
+#include "algorithm.h"
 
 enum class ModelType { Tree = 1 };
 
-class Node;
+class ViewNode;
+class ModelItem;
+
 /*******************************
  * Interface Model
  *******************************/
 
 class Model
 {
-    Node *root = nullptr;
+    ModelItem *root = nullptr;
 
-    QVector<int> data {3, 5, 1, 9, 7, 6, 4, 8, 2, 0};
-    QVector<Node*> nodes;
+    QVector<int> *data;
+    QVector<ModelItem*> items;
 public:
-    Model();
 
     static Model* createModel(ModelType type);
-    virtual void addItem(Node *node) = 0;
-    QVector<int>& getData();
+    virtual void addItem(ViewNode *node) = 0;
+    virtual void removeItem() = 0;
 
 };
 
 /*******************************
- * Implementations
+ * Interface ModelElement
+ *******************************/
+
+class ModelItem
+{
+
+public:
+    ModelItem();
+    virtual void addItem(ModelItem*) = 0;
+    virtual void removeItem() = 0;
+    virtual int getValue() = 0;
+    virtual void setValue(int val) = 0;
+
+    Algorithm* algorithm;
+};
+
+/*******************************
+ * Implementations BinaryTree Model
  *******************************/
 
 class TreeModel : public Model
 {
 public:
     explicit TreeModel();
-    void addItem(Node *node) override;
+    void addItem(ViewNode *node) override;
+    void removeItem() override;
+    QVector<ModelItem*> nodes;
 };
 
 #endif // TREEMODEL_H
+
+/*******************************
+ * Implementations BinaryTree Node
+ *******************************/
+
+class BinaryTreeNode : public ModelItem
+{
+public:
+    BinaryTreeNode(int val);
+    void addItem(ModelItem *pelement) override;
+    void removeItem() override;
+
+    BinaryTreeNode* parent;
+    BinaryTreeNode* left;
+    BinaryTreeNode* right;
+    int value;
+};

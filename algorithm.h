@@ -2,31 +2,31 @@
 #define ALGORITHM_H
 
 #include <QVector>
-#include "model.h"
-#include "node.h"
 
 /*******************************
  * Interface Algorithm
  *******************************/
+
+class ModelItem;
+class Model;
 
 enum class AlgorithmType{ BinaryTree = 1 };
 
 class Algorithm
 {
 public:
+    // Factory Method
     static Algorithm* createAlgorithm(AlgorithmType type);
-    explicit Algorithm();
 
     virtual void apply() = 0;
-    virtual void addItem(Node* node) = 0;
+    virtual void addItem(ModelItem *self, ModelItem* node) = 0;
+
 protected:
-    Node* item = nullptr;
-private:
-    Model *model = nullptr;
+    Model* model;
 };
 
 /*******************************
- * Implementations
+ * Imp BinaryTreeAlgorithm
  *******************************/
 
 class BinaryTreeAlgorytm : public Algorithm
@@ -35,8 +35,7 @@ public:
     explicit BinaryTreeAlgorytm();
 
     void apply() override;
-    void addItem(Node* node) override;
-
+    void addItem(ModelItem *self, ModelItem* node) override;
 };
 
 #endif // ALGORITHM_H

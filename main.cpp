@@ -8,23 +8,22 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 
-GlobalState globalState;
+ApplicationState appState;
 
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
     QWidget *centralWidget = new QWidget;
-    ControlPanel *appwidget = new ControlPanel(&app);
+    ControlPanel *controlPanel= new ControlPanel(&app);
 
     GraphWidget *graphWidget = new GraphWidget;
-    globalState.addObserver(graphWidget);
-    appwidget->addGraph(graphWidget);
+    controlPanel->addGraph(graphWidget);
 
     QMainWindow mainWindow;
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->addWidget(graphWidget);
-    hlayout->addWidget(appwidget);
+    hlayout->addWidget(controlPanel);
     centralWidget->setLayout(hlayout);
     mainWindow.setCentralWidget(centralWidget);
 

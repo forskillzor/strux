@@ -8,12 +8,12 @@
 #include <QPainter>
 #include <QStyleOption>
 
-extern GlobalState globalState;
+extern ApplicationState appState;
 
-Node::Node(GraphWidget *graphWidget, QString &l)
+ViewNode::ViewNode(GraphWidget *graphWidget, QString &l)
     : label(l), graph(graphWidget)
 {
-    algorithm = globalState.algorithm;
+    algorithm = appState.algorithm;
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
@@ -23,18 +23,18 @@ Node::Node(GraphWidget *graphWidget, QString &l)
     height = 60;
 }
 
-void Node::addEdge(Edge *edge)
+void ViewNode::addEdge(Edge *edge)
 {
     edgeList << edge;
     edge->adjust();
 }
 
-QVector<Edge *> Node::edges() const
+QVector<Edge *> ViewNode::edges() const
 {
     return edgeList;
 }
 
-void Node::calculateForces()
+void ViewNode::calculateForces()
 {
     if (!scene() || scene()->mouseGrabberItem() == this) {
         newPos = pos();
@@ -46,7 +46,7 @@ void Node::calculateForces()
     qreal yvel = 0;
     const QList<QGraphicsItem *> items = scene()->items();
     for (QGraphicsItem *item : items) {
-        Node *node = qgraphicsitem_cast<Node *>(item);
+        ViewNode *node = qgraphicsitem_cast<ViewNode *>(item);
         if (!node)
             continue;
 
@@ -81,7 +81,7 @@ void Node::calculateForces()
     newPos.setY(qMin(qMax(newPos.y(), sceneRect.top() + 10), sceneRect.bottom() - 10));
 }
 
-bool Node::advancePosition()
+bool ViewNode::advancePosition()
 {
     if (newPos == pos())
         return false;
@@ -90,20 +90,20 @@ bool Node::advancePosition()
     return true;
 }
 
-QRectF Node::boundingRect() const
+QRectF ViewNode::boundingRect() const
 {
     qreal adjust = 2;
     return QRectF( -(width/2) - adjust, -(height/2) - adjust, (width+3) + adjust, (height+3) + adjust);
 }
 
-QPainterPath Node::shape() const
+QPainterPath ViewNode::shape() const
 {
     QPainterPath path;
     path.addEllipse(-(width/2), -(height/2), width, height);
     return path;
 }
 
-void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
+void ViewNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
 {
     // Shadow
 //    painter->setPen(Qt::NoPen);
@@ -132,7 +132,7 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 }
 
 
-QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
+QVariant ViewNode::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     switch (change) {
     case ItemPositionHasChanged:
@@ -147,13 +147,13 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
     return QGraphicsItem::itemChange(change, value);
 }
 
-void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void ViewNode::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
     QGraphicsItem::mousePressEvent(event);
 }
 
-void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void ViewNode::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
     QGraphicsItem::mouseReleaseEvent(event);

@@ -1,14 +1,15 @@
 #include "model.h"
+#include "globalstate.h"
+#include <QDebug>
+
+extern ApplicationState appState;
+class Algorithm;
 
 /*******************************
- * Interface Model
+ *
  *******************************/
 
-Model::Model()
-{
-}
-
-Model *Model::createModel(ModelType type)
+Model* Model::createModel(ModelType type)
 {
     switch (type) {
         case ModelType::Tree:
@@ -16,23 +17,46 @@ Model *Model::createModel(ModelType type)
     }
 }
 
-void Model::addItem(Node *node)
-{
-}
+/*******************************
+ * Interface ModelElement
+ *******************************/
 
-QVector<int>& Model::getData()
+ModelItem::ModelItem()
 {
-    return data;
+    algorithm = appState.algorithm;
 }
 
 /*******************************
- * Implementations
+ * Implementations TreeModel
  *******************************/
 
 TreeModel::TreeModel() : Model()
 {
 }
 
-void TreeModel::addItem(Node *node)
+void TreeModel::addItem(ViewNode *node)
 {
 }
+
+void TreeModel::removeItem()
+{
+}
+
+/*******************************
+ * Implementations BinaryTreeNode
+ *******************************/
+
+BinaryTreeNode::BinaryTreeNode(int val) : ModelItem()
+{
+    value = val;
+}
+
+void BinaryTreeNode::addItem(ModelItem *pelement)
+{
+    algorithm->addItem(this, pelement);
+}
+
+void BinaryTreeNode::removeItem()
+{
+}
+

@@ -23,12 +23,12 @@ GraphWidget::GraphWidget(QWidget *parent)
     setWindowTitle(tr("Elastic Nodes"));
 
     for (QString &label : labels) {
-        nodes.push_back(new Node(this, label));
+        nodes.push_back(new ViewNode(this, label));
     }
     for(int i = 1; i < nodes.length(); ++i) {
         edges.push_back(new Edge(nodes[i-1], nodes[i]));
     }
-    for (Node *node : nodes) {
+    for (ViewNode *node : nodes) {
         aScene->addItem(node);
     }
     for (Edge *edge : edges) {
@@ -36,7 +36,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     }
     qreal x(-200);
     qreal y(-200);
-    for (Node *node : nodes) {
+    for (ViewNode *node : nodes) {
         node->setPos(x, y);
         x+=100, y+=100;
     }
@@ -53,7 +53,7 @@ void GraphWidget::resetView()
 {
     qreal x(-200);
     qreal y(-200);
-    for (Node *node : nodes) {
+    for (ViewNode *node : nodes) {
         node->setPos(x, y);
         x+=100, y+=100;
     }
@@ -61,6 +61,7 @@ void GraphWidget::resetView()
 
 void GraphWidget::keyPressEvent(QKeyEvent *event)
 {
+    /*
     switch (event->key()) {
     case Qt::Key_Up:
         centerNode->moveBy(0, -20);
@@ -87,6 +88,7 @@ void GraphWidget::keyPressEvent(QKeyEvent *event)
     default:
         QGraphicsView::keyPressEvent(event);
     }
+    */
 }
 
 void GraphWidget::timerEvent(QTimerEvent *event)
@@ -175,7 +177,7 @@ void GraphWidget::shuffle()
 {
     const QList<QGraphicsItem *> items = scene()->items();
     for (QGraphicsItem *item : items) {
-        if (qgraphicsitem_cast<Node *>(item))
+        if (qgraphicsitem_cast<ViewNode *>(item))
             item->setPos(-150 + QRandomGenerator::global()->bounded(300), -150 + QRandomGenerator::global()->bounded(300));
     }
 }

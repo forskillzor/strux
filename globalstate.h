@@ -1,22 +1,28 @@
 #ifndef GLOBALSTATE_H
 #define GLOBALSTATE_H
-//#include "algorithm.h"
-//#include "model.h"
+
+#include <QObject>
 
 class Algorithm;
 class Model;
-class Observer;
 
-class GlobalState
+class ApplicationState : public QObject
 {
-public:
-    GlobalState();
+    Q_OBJECT
 
-    Observer *observer = nullptr;
+public:
+    ApplicationState();
+
     Algorithm* algorithm = nullptr;
     Model* model = nullptr;
 
-    void addObserver(Observer* pobsrvr);
+public slots:
+    void setAlgorithm(Algorithm *palg);
+    void setModel(Model *pmodel);
+signals:
+    void algorithmChanged(Algorithm *palg);
+    void modelChanged(Model *pmodel);
+
 };
 
 #endif // GLOBALSTATE_H

@@ -1,12 +1,23 @@
 #include "globalstate.h"
+#include "algorithm.h"
+#include "model.h"
 
-extern GlobalState globalState;
+extern ApplicationState appState;
 
-GlobalState::GlobalState()
+ApplicationState::ApplicationState() : QObject(nullptr)
 {
+    algorithm  = Algorithm::createAlgorithm(AlgorithmType::BinaryTree);
+    model = Model::createModel(ModelType::Tree);
 }
 
-void GlobalState::addObserver(Observer *pobsrvr)
+void ApplicationState::setAlgorithm(Algorithm *palg)
 {
-    observer = pobsrvr;
+    algorithm = palg;
+    emit algorithmChanged(palg);
+}
+
+void ApplicationState::setModel(Model *pmodel)
+{
+    model = pmodel;
+    emit modelChanged(pmodel);
 }

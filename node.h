@@ -6,20 +6,23 @@
 #include <QString>
 
 
-class Node;
+class ViewNode;
 class Edge;
 class GraphWidget;
 class Algorithm;
 
-class Node : public QGraphicsItem
+class ViewElement {
+
+};
+
+class ViewNode : public QGraphicsItem, public ViewElement
 {
 public:
-    Node(GraphWidget *graphWidget, QString &label);
+    ViewNode(GraphWidget *graphWidget, QString &label);
 
     QString label;
-    int value;
-    Node* left;
-    Node* right;
+    ViewNode* left;
+    ViewNode* right;
     Algorithm* algorithm = nullptr;
 
     void addEdge(Edge *edge);
@@ -34,11 +37,12 @@ public:
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-    void setHeight(int h) { height = h; }
-    int getHeight() { return height; }
-    void setWidth(int w) { width = w; }
+
     int getWidth() { return width; }
-    int getValue() {return value; }
+    int getHeight() { return height; }
+
+    void setWidth(int w) { width = w; }
+    void setHeight(int h) { height = h; }
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;

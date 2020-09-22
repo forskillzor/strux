@@ -8,7 +8,7 @@
 #include <QSpacerItem>
 #include <QCoreApplication>
 
-extern GlobalState globalState;
+extern ApplicationState appState;
 
 
 ControlPanel::ControlPanel(QApplication *app) : QWidget(nullptr), application(app)

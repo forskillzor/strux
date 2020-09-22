@@ -4,7 +4,7 @@
 #include <QPainter>
 #include <QtMath>
 
-Edge::Edge(Node *sourceNode, Node *destNode)
+Edge::Edge(ViewNode *sourceNode, ViewNode *destNode)
     : source(sourceNode), dest(destNode)
 {
     setAcceptedMouseButtons(Qt::NoButton);
@@ -13,12 +13,12 @@ Edge::Edge(Node *sourceNode, Node *destNode)
     adjust();
 }
 
-Node *Edge::sourceNode() const
+ViewNode *Edge::sourceNode() const
 {
     return source;
 }
 
-Node *Edge::destNode() const
+ViewNode *Edge::destNode() const
 {
     return dest;
 }

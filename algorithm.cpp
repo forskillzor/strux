@@ -1,7 +1,10 @@
 #include "algorithm.h"
+#include "model.h"
+
+class BinaryTreeNode;
 
 /*******************************
- * Interface
+ * Factory Method
  *******************************/
 
 Algorithm *Algorithm::createAlgorithm(AlgorithmType type)
@@ -12,12 +15,8 @@ Algorithm *Algorithm::createAlgorithm(AlgorithmType type)
     }
 }
 
-Algorithm::Algorithm()
-{
-}
-
 /*******************************
- * Implementations
+ * BinaryTreeAlgorithm
  *******************************/
 
 BinaryTreeAlgorytm::BinaryTreeAlgorytm() : Algorithm()
@@ -28,21 +27,25 @@ void BinaryTreeAlgorytm::apply()
 {
 }
 
-void BinaryTreeAlgorytm::addItem(Node* node)
+void BinaryTreeAlgorytm::addItem(ModelItem *self, ModelItem* node)
 {
-    if (node->getValue() < item->value) {
-        if (item->left)
-           item->left->algorithm->addItem(node);
+    BinaryTreeNode* belem;
+    BinaryTreeNode* bnode;
+
+    belem = dynamic_cast<BinaryTreeNode*>(self);
+    if (node->getValue() < self->getValue()) {
+        if (belem->left)
+           belem->left->algorithm->addItem(belem, node);
         else {
-           item->left = node;
+           belem->left = bnode;
         }
 
     }
     else {
-        if (item->right)
-            item->right->algorithm->addItem(node);
+        if (belem->right)
+            belem->right->algorithm->addItem(belem, bnode);
         else {
-            item->left = node;
+            belem->left = bnode;
         }
     }
 }

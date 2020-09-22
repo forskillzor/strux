@@ -4,17 +4,10 @@
 #include <QGraphicsView>
 #include "edge.h"
 
-class Model;
-class BTNode;
-class Node;
-class ViewModel;
+class ViewNode;
 class Algorithm;
 
-class Observer {
-
-};
-
-class GraphWidget : public QGraphicsView, public Observer
+class GraphWidget : public QGraphicsView
 {
     Q_OBJECT
 
@@ -41,15 +34,13 @@ protected:
 
 private:
     int timerId = 0;
-    Node *centerNode = nullptr;
+    ViewNode *centerNode = nullptr;
     QGraphicsScene *aScene = nullptr;
 
     QVector<QString> labels{ "one", "two", "three", "four", "five" };
-    QVector<Node *> nodes;
+    QVector<ViewNode *> nodes;
     QVector<Edge *> edges;
 
-    ViewModel *viewModel = nullptr;
-    Model *model = nullptr;
     Algorithm *algorithm = nullptr;
 };
 

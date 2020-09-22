@@ -1,16 +1,19 @@
 #include "edge.h"
-#include "viewnode.h"
+#include "node.h"
 #include "graphwidget.h"
+#include "globalstate.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
 
-//! [0]
-ViewNode::ViewNode(GraphWidget *graphWidget, QString &l)
+extern GlobalState globalState;
+
+Node::Node(GraphWidget *graphWidget, QString &l)
     : label(l), graph(graphWidget)
 {
+    algorithm = globalState.algorithm;
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
@@ -19,37 +22,31 @@ ViewNode::ViewNode(GraphWidget *graphWidget, QString &l)
     width = 100;
     height = 60;
 }
-//! [0]
 
-//! [1]
-void ViewNode::addEdge(ViewEdge *edge)
+void Node::addEdge(Edge *edge)
 {
     edgeList << edge;
     edge->adjust();
 }
 
-QVector<ViewEdge *> ViewNode::edges() const
+QVector<Edge *> Node::edges() const
 {
     return edgeList;
 }
-//! [1]
 
-//! [2]
-void ViewNode::calculateForces()
+void Node::calculateForces()
 {
     if (!scene() || scene()->mouseGrabberItem() == this) {
         newPos = pos();
         return;
     }
-//! [2]
 
-//! [3]
     // Sum up all forces pushing this item away
     qreal xvel = 0;
     qreal yvel = 0;
     const QList<QGraphicsItem *> items = scene()->items();
     for (QGraphicsItem *item : items) {
-        ViewNode *node = qgraphicsitem_cast<ViewNode *>(item);
+        Node *node = qgraphicsitem_cast<Node *>(item);
         if (!node)
             continue;
 
@@ -62,12 +59,10 @@ void ViewNode::calculateForces()
             yvel += (dy * 150.0) / l;
         }
     }
-//! [3]
 
-//! [4]
     // Now subtract all forces pulling items together
     double weight = (edgeList.size() + 1) * 10;
-    for (const ViewEdge *edge : qAsConst(edgeList)) {
+    for (const Edge *edge : qAsConst(edgeList)) {
         QPointF vec;
         if (edge->sourceNode() == this)
             vec = mapToItem(edge->destNode(), 0, 0);
@@ -76,23 +71,17 @@ void ViewNode::calculateForces()
         xvel -= vec.x() / weight;
         yvel -= vec.y() / weight;
     }
-//! [4]
 
-//! [5]
     if (qAbs(xvel) < 0.1 && qAbs(yvel) < 0.1)
         xvel = yvel = 0;
-//! [5]
 
-//! [6]
     QRectF sceneRect = scene()->sceneRect();
     newPos = pos() + QPointF(xvel, yvel);
     newPos.setX(qMin(qMax(newPos.x(), sceneRect.left() + 10), sceneRect.right() - 10));
     newPos.setY(qMin(qMax(newPos.y(), sceneRect.top() + 10), sceneRect.bottom() - 10));
 }
-//! [6]
 
-//! [7]
-bool ViewNode::advancePosition()
+bool Node::advancePosition()
 {
     if (newPos == pos())
         return false;
@@ -100,27 +89,21 @@ bool ViewNode::advancePosition()
     setPos(newPos);
     return true;
 }
-//! [7]
 
-//! [8]
-QRectF ViewNode::boundingRect() const
+QRectF Node::boundingRect() const
 {
     qreal adjust = 2;
     return QRectF( -(width/2) - adjust, -(height/2) - adjust, (width+3) + adjust, (height+3) + adjust);
 }
-//! [8]
 
-//! [9]
-QPainterPath ViewNode::shape() const
+QPainterPath Node::shape() const
 {
     QPainterPath path;
     path.addEllipse(-(width/2), -(height/2), width, height);
     return path;
 }
-//! [9]
 
-//! [10]
-void ViewNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
+void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
 {
     // Shadow
 //    painter->setPen(Qt::NoPen);
@@ -148,14 +131,12 @@ void ViewNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     //
 }
 
-//! [10]
 
-//! [11]
-QVariant ViewNode::itemChange(GraphicsItemChange change, const QVariant &value)
+QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     switch (change) {
     case ItemPositionHasChanged:
-        for (ViewEdge *edge : qAsConst(edgeList))
+        for (Edge *edge : qAsConst(edgeList))
             edge->adjust();
         graph->itemMoved();
         break;
@@ -165,18 +146,15 @@ QVariant ViewNode::itemChange(GraphicsItemChange change, const QVariant &value)
 
     return QGraphicsItem::itemChange(change, value);
 }
-//! [11]
 
-//! [12]
-void ViewNode::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
     QGraphicsItem::mousePressEvent(event);
 }
 
-void ViewNode::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
     QGraphicsItem::mouseReleaseEvent(event);
 }
-//! [12]

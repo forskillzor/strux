@@ -1,5 +1,4 @@
 #include "model.h"
-#include "modelnode.h"
 
 /*******************************
  * Interface Model
@@ -7,8 +6,6 @@
 
 Model::Model()
 {
-    for (int val : data)
-        nodes.push_back(ModelNode::createNode(NodeType::Tree, val));
 }
 
 Model *Model::createModel(ModelType type)
@@ -19,12 +16,8 @@ Model *Model::createModel(ModelType type)
     }
 }
 
-void Model::addItem(ModelNode *node)
+void Model::addItem(Node *node)
 {
-//    if (root == nullptr)
-//        root = node;
-//    else
-//        root->addChild(new BTNode);
 }
 
 QVector<int>& Model::getData()
@@ -37,5 +30,9 @@ QVector<int>& Model::getData()
  *******************************/
 
 TreeModel::TreeModel() : Model()
+{
+}
+
+void TreeModel::addItem(Node *node)
 {
 }

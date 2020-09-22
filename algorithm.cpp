@@ -1,25 +1,48 @@
 #include "algorithm.h"
 
-
-class BTNode;
-
 /*******************************
  * Interface
  *******************************/
 
-Algorithm::Algorithm(Model *pmodel)
+Algorithm *Algorithm::createAlgorithm(AlgorithmType type)
 {
-    model = pmodel;
+    switch(type){
+    case AlgorithmType::BinaryTree:
+        return new BinaryTreeAlgorytm();
+    }
+}
+
+Algorithm::Algorithm()
+{
 }
 
 /*******************************
  * Implementations
  *******************************/
 
-BinaryTreeAlgorytm::BinaryTreeAlgorytm(Model *pmodel) : Algorithm(pmodel)
+BinaryTreeAlgorytm::BinaryTreeAlgorytm() : Algorithm()
 {
 }
 
 void BinaryTreeAlgorytm::apply()
 {
+}
+
+void BinaryTreeAlgorytm::addItem(Node* node)
+{
+    if (node->getValue() < item->value) {
+        if (item->left)
+           item->left->algorithm->addItem(node);
+        else {
+           item->left = node;
+        }
+
+    }
+    else {
+        if (item->right)
+            item->right->algorithm->addItem(node);
+        else {
+            item->left = node;
+        }
+    }
 }

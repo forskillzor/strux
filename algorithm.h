@@ -3,16 +3,24 @@
 
 #include <QVector>
 #include "model.h"
+#include "node.h"
 
 /*******************************
  * Interface Algorithm
  *******************************/
 
+enum class AlgorithmType{ BinaryTree = 1 };
+
 class Algorithm
 {
 public:
-    Algorithm(Model *pmodel);
+    static Algorithm* createAlgorithm(AlgorithmType type);
+    explicit Algorithm();
+
     virtual void apply() = 0;
+    virtual void addItem(Node* node) = 0;
+protected:
+    Node* item = nullptr;
 private:
     Model *model = nullptr;
 };
@@ -24,9 +32,10 @@ private:
 class BinaryTreeAlgorytm : public Algorithm
 {
 public:
-    BinaryTreeAlgorytm(Model *pmodel);
+    explicit BinaryTreeAlgorytm();
 
     void apply() override;
+    void addItem(Node* node) override;
 
 };
 

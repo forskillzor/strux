@@ -2,24 +2,22 @@ QT += widgets
 
 HEADERS += \
         algorithm.h \
-        appwidget.h \
+        controllpanel.h \
         edge.h \
+        globalstate.h \
         graphwidget.h \
         model.h \
-        modelnode.h \
-        viewmodel.h \
-        viewnode.h
+        node.h
 
 SOURCES += \
         algorithm.cpp \
-        appwidget.cpp \
+        controllpanel.cpp \
         edge.cpp \
+        globalstate.cpp \
         graphwidget.cpp \
         main.cpp \
         model.cpp \
-        modelnode.cpp \
-        viewmodel.cpp \
-        viewnode.cpp
+        node.cpp
 
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/widgets/graphicsview/elasticnodes

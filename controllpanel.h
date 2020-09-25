@@ -15,7 +15,6 @@ class ControlPanel : public QWidget
     Q_OBJECT
 public:
     explicit ControlPanel(QApplication *app);
-    void setModel(Model* pmodel);
     void setGraph(GraphWidget* g);
 
 private:

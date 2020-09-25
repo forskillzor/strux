@@ -6,7 +6,7 @@
 #include "node.h"
 
 class Model;
-enum class ModelType { Tree = 1 };
+enum class ModelType { Empty = 0, Tree };
 
 class ViewNode;
 class ModelItem;
@@ -20,12 +20,14 @@ class Model
     ModelItem *root = nullptr;
     QVector<int> *data;
     QVector<ModelItem*> items;
+protected:
+    ModelType type = ModelType::Empty;
 public:
-
     static Model* createModel(ModelType type);
     virtual void addItem(ModelItem *node) = 0;
     virtual void removeItem() = 0;
     virtual ModelItem* getRoot() = 0;
+    virtual ModelType getType() = 0;
 };
 
 /* Interface ModelElement
@@ -54,6 +56,7 @@ public:
     void addItem(ModelItem *node) override;
     void removeItem() override;
     ModelItem* getRoot() override;
+    ModelType getType() override;
 
 private:
     QVector<ModelItem*> nodes;

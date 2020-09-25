@@ -356,42 +356,42 @@
                             <qlist>
                              <item>
                               <MClassMember>
-                               <uid>{47e4d109-3ac1-462c-a949-deae37e26b76}</uid>
+                               <uid>{16394103-5c60-46cc-86bc-f51cc5dbba35}</uid>
                                <type>1</type>
                                <declaration>Algorithm *algorithm</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{9ab46d7c-00eb-4440-ad3e-fa234d5a91a7}</uid>
+                               <uid>{79db5056-6471-422c-b11d-4574ccdff6a9}</uid>
                                <type>1</type>
                                <declaration>Model *model</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{1b5e89b7-b5e2-4770-80ed-dba1122c6881}</uid>
+                               <uid>{8008cc0c-d46e-4014-a1e3-6f5ed9d62048}</uid>
                                <type>1</type>
                                <declaration>QVector&lt;int&gt; data {}</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{238837f5-0a2c-4eb3-ae3f-558a4ceec3fb}</uid>
+                               <uid>{227abd43-3c41-49d5-bc06-14ff0f18ad40}</uid>
                                <type>2</type>
                                <declaration>setGraphic(GraphWidget*)</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{d809d982-497a-40d8-87d1-b59a47655698}</uid>
+                               <uid>{718b77c2-7e9a-4408-91a1-668d0bba992d}</uid>
                                <type>2</type>
                                <declaration>setModel(Model*)</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{6f15a834-9ea9-400e-b312-6a10e6e34b93}</uid>
+                               <uid>{2c294556-013b-4da6-919a-5c9791bc2b77}</uid>
                                <type>2</type>
                                <declaration>apply()</declaration>
                               </MClassMember>

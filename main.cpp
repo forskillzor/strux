@@ -19,7 +19,6 @@ int main(int argc, char **argv)
     GraphWidget *graphWidget = new GraphWidget;
     Model* dataModel = new TreeModel;
     controlPanel->setGraph(graphWidget);
-    controlPanel->setModel(dataModel);
 
     // init window
     QMainWindow mainWindow;

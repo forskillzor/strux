@@ -6,32 +6,30 @@
 #include "edge.h"
 #include "model.h"
 
-DrawRequest::DrawRequest(Model *pmodel, ModelType t, GraphWidget* pwidget)
-    : model(pmodel), type(t), widget(pwidget)
-{
-}
-
-Drawer::Drawer(DrawRequest* req)
-     :type(req->type),
-      model(req->model),
-      widget(req->widget),
-      scene(req->widget->getScene()),
-      request(req)
+Drawer::Drawer(Model* pmodel, GraphWidget* pwidget)
+     :model(pmodel),
+      type(pmodel->getType()),
+      widget(pwidget),
+      scene(pwidget->getScene())
 {
 }
 
 void Drawer::draw(ModelItem *item, ViewNode *vparent, qreal x, qreal y)
 {
     switch(type) {
+    case ModelType::Empty:
+        qDebug() << "Empty model";
+        break;
     case ModelType::Tree:
-        BinaryTreeDrawer* drawer = new BinaryTreeDrawer(request);
-        drawer->draw(static_cast<BinaryTreeNode*>(request->model->getRoot()));
+        BinaryTreeDrawer* drawer = new BinaryTreeDrawer(model, widget);
+        drawer->draw(static_cast<BinaryTreeNode*>(model->getRoot()));
+        qDebug() << "root is: " << model->getRoot();
         break;
     }
 }
 
-BinaryTreeDrawer::BinaryTreeDrawer(DrawRequest* req)
-    : Drawer(req)
+BinaryTreeDrawer::BinaryTreeDrawer(Model* pmodel, GraphWidget* pwidget)
+    : Drawer(pmodel, pwidget)
 {
 }
 
@@ -47,6 +45,7 @@ void BinaryTreeDrawer::draw(ModelItem *item,
         vnode->setPos(x, y);
         //BUG scene 0x0
         scene->addItem(vnode);
+        qDebug() << "scene is: " << scene;
 
         if (vparent) {
             Edge *edge = new Edge(vnode, vparent);

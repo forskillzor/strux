@@ -15,9 +15,10 @@ class GraphWidget : public QGraphicsView
 public:
     GraphWidget(QWidget *parent = nullptr);
 
-    void drawModel(DrawRequest* req);
+    void drawModel();
     void itemMoved();
     void addItem(ViewNode* item, QString &label, ViewNode* parent = nullptr);
+    void addItem(ModelItem* item);
     QGraphicsScene* getScene() { return aScene; }
 
 public slots:
@@ -39,6 +40,7 @@ protected:
 private:
     int timerId = 0;
     QGraphicsScene *aScene = nullptr;
+    Model* model = nullptr;
     QVector<ViewNode *> nodes;
     QVector<Edge *> edges;
 

@@ -8,6 +8,8 @@
 Model* Model::createModel(ModelType type)
 {
     switch (type) {
+        case ModelType::Empty:
+            return nullptr;
         case ModelType::Tree:
             return new TreeModel();
     }
@@ -18,6 +20,7 @@ Model* Model::createModel(ModelType type)
 
 TreeModel::TreeModel() : Model()
 {
+    type = ModelType::Tree;
 }
 
 void TreeModel::addItem(ModelItem *item)
@@ -35,8 +38,12 @@ void TreeModel::removeItem()
 
 ModelItem *TreeModel::getRoot()
 {
-    ModelItem* item = static_cast<BinaryTreeNode*>(root);
-    return item;
+    return root;
+}
+
+ModelType TreeModel::getType()
+{
+    return type;
 }
 
 /* Implementations BinaryTreeNode
@@ -50,7 +57,6 @@ BinaryTreeNode::BinaryTreeNode(int val) : ModelItem()
 void BinaryTreeNode::setParent(ModelItem *pparent)
 {
     BinaryTreeNode* node = static_cast<BinaryTreeNode*>(pparent);
-    qDebug() << "setParent:" << pparent->getValue();
     parent = node;
 }
 
@@ -63,7 +69,6 @@ void BinaryTreeNode::addItem(ModelItem *item)
             left->addItem(node);
         }
         else {
-            // TODO new ViewNode() new Edge()
             left = static_cast<BinaryTreeNode*>(node);
             left->setParent(this);
             return;
@@ -74,7 +79,6 @@ void BinaryTreeNode::addItem(ModelItem *item)
             right->addItem(node);
         }
         else {
-            // TODO new ViewNode() new Edge()
             right = static_cast<BinaryTreeNode*>(node);
             right->setParent(this);
             return;

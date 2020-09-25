@@ -3,24 +3,15 @@
 
 #include "model.h"
 
-struct DrawRequest
-{
-    DrawRequest(Model* pmodel, ModelType type, GraphWidget* pwidget);
-    Model* model;
-    ModelType type;
-    GraphWidget* widget;
-};
-
 class Drawer
 {
 protected:
-    ModelType type;
     Model* model = nullptr;
+    ModelType type = ModelType::Empty;
     GraphWidget* widget = nullptr;
     QGraphicsScene* scene = nullptr;
-    DrawRequest *request = nullptr;
 public:
-    Drawer(DrawRequest* req);
+    Drawer(Model* pmodel, GraphWidget* pwidget);
     virtual void draw(ModelItem* item = nullptr,
                       ViewNode* vparent = nullptr,
                       qreal x = 0, qreal y = -220);
@@ -29,7 +20,7 @@ public:
 class BinaryTreeDrawer : public Drawer
 {
 public:
-    BinaryTreeDrawer(DrawRequest* req);
+    BinaryTreeDrawer(Model* pmodel, GraphWidget* pwidget);
     void draw(ModelItem* item,
               ViewNode* vparent = nullptr,
               qreal x = 0, qreal y = -220) override;

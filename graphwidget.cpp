@@ -11,6 +11,7 @@
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
+    model = new TreeModel;
     aScene = new QGraphicsScene(this);
     aScene->setItemIndexMethod(QGraphicsScene::NoIndex);
     aScene->setSceneRect(-400, -400, 800, 800);
@@ -22,25 +23,11 @@ GraphWidget::GraphWidget(QWidget *parent)
     scale(qreal(0.8), qreal(0.8));
     setMinimumSize(400, 400);
     setWindowTitle(tr("Elastic Nodes"));
-
-//    for (ViewNode *node : nodes) {
-//        aScene->addItem(node);
-//    }
-//    for (Edge *edge : edges) {
-//        aScene->addItem(edge);
-//    }
-//    qreal x(-200);
-//    qreal y(-200);
-//    for (ViewNode *node : nodes) {
-//        node->setPos(x, y);
-//        x+=100, y+=100;
-//    }
-
 }
 
-void GraphWidget::drawModel(DrawRequest *req)
+void GraphWidget::drawModel()
 {
-    Drawer* drawer = new Drawer(req);
+    Drawer* drawer = new Drawer(model, this);
     drawer->draw();
 //        Drawer* drawer = Drawer::createDrawer(req);
 //        ModelItem* root = req->model->getRoot();
@@ -55,8 +42,13 @@ void GraphWidget::itemMoved()
 
 void GraphWidget::addItem(ViewNode *item, QString &label, ViewNode* parent)
 {
-    nodes.push_back(new ViewNode(this, label));
-    edges.push_back(new Edge(item, parent));
+//    nodes.push_back(new ViewNode(this, label));
+    //    edges.push_back(new Edge(item, parent));
+}
+
+void GraphWidget::addItem(ModelItem* item)
+{
+    model->addItem(item);
 }
 
 void GraphWidget::keyPressEvent(QKeyEvent *event)

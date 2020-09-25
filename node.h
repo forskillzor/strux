@@ -11,11 +11,11 @@ class Edge;
 class GraphWidget;
 class Algorithm;
 
-class ViewElement {
+class ViewItem {
 
 };
 
-class ViewNode : public QGraphicsItem, public ViewElement
+class ViewNode : public QGraphicsItem, public ViewItem
 {
 public:
     ViewNode(GraphWidget *graphWidget, QString &label);

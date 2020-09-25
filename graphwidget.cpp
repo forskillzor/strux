@@ -1,11 +1,12 @@
 #include <math.h>
 #include <QKeyEvent>
 #include <QRandomGenerator>
+#include <QDebug>
 
 #include "graphwidget.h"
 #include "edge.h"
 #include "node.h"
-#include "algorithm.h"
+#include "drawer.h"
 
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
@@ -22,25 +23,28 @@ GraphWidget::GraphWidget(QWidget *parent)
     setMinimumSize(400, 400);
     setWindowTitle(tr("Elastic Nodes"));
 
-    for (QString &label : labels) {
-        nodes.push_back(new ViewNode(this, label));
-    }
-    for(int i = 1; i < nodes.length(); ++i) {
-        edges.push_back(new Edge(nodes[i-1], nodes[i]));
-    }
-    for (ViewNode *node : nodes) {
-        aScene->addItem(node);
-    }
-    for (Edge *edge : edges) {
-        aScene->addItem(edge);
-    }
-    qreal x(-200);
-    qreal y(-200);
-    for (ViewNode *node : nodes) {
-        node->setPos(x, y);
-        x+=100, y+=100;
-    }
+//    for (ViewNode *node : nodes) {
+//        aScene->addItem(node);
+//    }
+//    for (Edge *edge : edges) {
+//        aScene->addItem(edge);
+//    }
+//    qreal x(-200);
+//    qreal y(-200);
+//    for (ViewNode *node : nodes) {
+//        node->setPos(x, y);
+//        x+=100, y+=100;
+//    }
 
+}
+
+void GraphWidget::drawModel(DrawRequest *req)
+{
+    Drawer* drawer = new Drawer(req);
+    drawer->draw();
+//        Drawer* drawer = Drawer::createDrawer(req);
+//        ModelItem* root = req->model->getRoot();
+//        drawer->draw(root);
 }
 
 void GraphWidget::itemMoved()
@@ -49,14 +53,10 @@ void GraphWidget::itemMoved()
         timerId = startTimer(1000 / 25);
 }
 
-void GraphWidget::resetView()
+void GraphWidget::addItem(ViewNode *item, QString &label, ViewNode* parent)
 {
-    qreal x(-200);
-    qreal y(-200);
-    for (ViewNode *node : nodes) {
-        node->setPos(x, y);
-        x+=100, y+=100;
-    }
+    nodes.push_back(new ViewNode(this, label));
+    edges.push_back(new Edge(item, parent));
 }
 
 void GraphWidget::keyPressEvent(QKeyEvent *event)

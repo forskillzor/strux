@@ -1,29 +1,32 @@
-#include "graphwidget.h"
-#include "controllpanel.h"
-#include "globalstate.h"
 
 #include <QApplication>
 #include <QTime>
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QObject>
 
-ApplicationState appState;
+#include "graphwidget.h"
+#include "controllpanel.h"
+#include "model.h"
 
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
-    QWidget *centralWidget = new QWidget;
+    // init control
     ControlPanel *controlPanel= new ControlPanel(&app);
-
     GraphWidget *graphWidget = new GraphWidget;
-    controlPanel->addGraph(graphWidget);
+    Model* dataModel = new TreeModel;
+    controlPanel->setGraph(graphWidget);
+    controlPanel->setModel(dataModel);
 
+    // init window
     QMainWindow mainWindow;
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->addWidget(graphWidget);
     hlayout->addWidget(controlPanel);
+    QWidget *centralWidget = new QWidget;
     centralWidget->setLayout(hlayout);
     mainWindow.setCentralWidget(centralWidget);
 

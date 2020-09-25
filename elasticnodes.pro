@@ -1,19 +1,17 @@
 QT += widgets
 
 HEADERS += \
-        algorithm.h \
         controllpanel.h \
+        drawer.h \
         edge.h \
-        globalstate.h \
         graphwidget.h \
         model.h \
         node.h
 
 SOURCES += \
-        algorithm.cpp \
         controllpanel.cpp \
+        drawer.cpp \
         edge.cpp \
-        globalstate.cpp \
         graphwidget.cpp \
         main.cpp \
         model.cpp \

@@ -3,9 +3,10 @@
 
 #include <QGraphicsView>
 #include "edge.h"
+#include "model.h"
+#include "drawer.h"
 
 class ViewNode;
-class Algorithm;
 
 class GraphWidget : public QGraphicsView
 {
@@ -14,8 +15,10 @@ class GraphWidget : public QGraphicsView
 public:
     GraphWidget(QWidget *parent = nullptr);
 
+    void drawModel(DrawRequest* req);
     void itemMoved();
-    void resetView();
+    void addItem(ViewNode* item, QString &label, ViewNode* parent = nullptr);
+    QGraphicsScene* getScene() { return aScene; }
 
 public slots:
     void shuffle();
@@ -32,16 +35,13 @@ protected:
 
     void scaleView(qreal scaleFactor);
 
+
 private:
     int timerId = 0;
-    ViewNode *centerNode = nullptr;
     QGraphicsScene *aScene = nullptr;
-
-    QVector<QString> labels{ "one", "two", "three", "four", "five" };
     QVector<ViewNode *> nodes;
     QVector<Edge *> edges;
 
-    Algorithm *algorithm = nullptr;
 };
 
 #endif // GRAPHWIDGET_H

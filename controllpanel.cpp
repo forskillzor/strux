@@ -1,15 +1,14 @@
 #include "controllpanel.h"
-#include "globalstate.h"
-#include "algorithm.h"
 #include "graphwidget.h"
+#include "drawer.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QSpacerItem>
 #include <QCoreApplication>
 
-extern ApplicationState appState;
-
+// for debuging
+#include <QDebug>
 
 ControlPanel::ControlPanel(QApplication *app) : QWidget(nullptr), application(app)
 {
@@ -29,6 +28,7 @@ ControlPanel::ControlPanel(QApplication *app) : QWidget(nullptr), application(ap
     applyButton = new QPushButton("Apply", this);
     resetButton = new QPushButton("Reset View", this);
     quitButton = new QPushButton("Quit", this);
+
     // Main AppWidget Layout
     QVBoxLayout *vlayout = new QVBoxLayout;
     topPanelLayout->addWidget(binaryTreeRadioButton);
@@ -36,25 +36,32 @@ ControlPanel::ControlPanel(QApplication *app) : QWidget(nullptr), application(ap
     topPanelLayout->addWidget(applyButton);
     topPanelLayout->addWidget(resetButton);
     vlayout->addWidget(topControlls);
+
     // Vertical Spacer
     QSpacerItem *controlPanelVSpacer =  new QSpacerItem(10, 400, QSizePolicy::Fixed, QSizePolicy::Expanding);
     vlayout->addSpacerItem(controlPanelVSpacer);
     vlayout->addWidget(quitButton);
     setLayout(vlayout);
 
+    // CONNECTIONS
+    connect(applyButton, &QPushButton::clicked, this, &ControlPanel::apply);
     connect(quitButton, &QPushButton::clicked, qApp, &QCoreApplication::quit);
-    connect(applyButton, &QPushButton::clicked, this, &ControlPanel::setAlgorithm);
-    connect(algorithmGroup, QOverload<int>::of(&QButtonGroup::buttonPressed),
-            this, &ControlPanel::setAlgorithm);
-    connect(resetButton, &QPushButton::clicked, [=](){graph->resetView();} );
 }
 
-void ControlPanel::addGraph(GraphWidget *g)
+void ControlPanel::setModel(Model *pmodel)
 {
-    graph = g;
+    model = pmodel;
 }
 
-void ControlPanel::setAlgorithm(int id)
+void ControlPanel::setGraph(GraphWidget *pgraph)
 {
-//    globalState.algorithm = Algorithm::createAlgorithm(AlgorithmType::BinaryTree);
+    graph = pgraph;
+}
+
+void ControlPanel::apply()
+{
+    for (int val : data) {
+        model->addItem(new BinaryTreeNode(val));
+    }
+    graph->drawModel(new DrawRequest(model, ModelType::Tree, graph));
 }

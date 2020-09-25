@@ -1,26 +1,22 @@
 #include "edge.h"
 #include "node.h"
 #include "graphwidget.h"
-#include "globalstate.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
 
-extern ApplicationState appState;
-
 ViewNode::ViewNode(GraphWidget *graphWidget, QString &l)
     : label(l), graph(graphWidget)
 {
-    algorithm = appState.algorithm;
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setAcceptHoverEvents(true);
     setZValue(-1);
-    width = 100;
-    height = 60;
+    width = 40;
+    height = 40;
 }
 
 void ViewNode::addEdge(Edge *edge)

@@ -23,7 +23,6 @@ void Drawer::draw(ModelItem *item, ViewNode *vparent, qreal x, qreal y)
     case ModelType::Tree:
         BinaryTreeDrawer* drawer = new BinaryTreeDrawer(model, widget);
         drawer->draw(static_cast<BinaryTreeNode*>(model->getRoot()));
-        qDebug() << "root is: " << model->getRoot();
         break;
     }
 }
@@ -41,14 +40,14 @@ void BinaryTreeDrawer::draw(ModelItem *item,
     if (item) {
         BinaryTreeNode* node = static_cast<BinaryTreeNode*>(item);
         QString label = QString::number(node->getValue());
-        ViewNode *vnode = new ViewNode(widget, label);
+        ViewNode *vnode = new ViewNode(label);
+        widget->nodes.push_back(vnode);
         vnode->setPos(x, y);
-        //BUG scene 0x0
         scene->addItem(vnode);
-        qDebug() << "scene is: " << scene;
 
         if (vparent) {
-            Edge *edge = new Edge(vnode, vparent);
+            ViewEdge *edge = new ViewEdge(vnode, vparent);
+            widget->edges.push_back(edge);
             vnode->setPos(x, y);
 
             scene->addItem(edge);

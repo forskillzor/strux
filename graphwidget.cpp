@@ -29,21 +29,22 @@ void GraphWidget::drawModel()
 {
     Drawer* drawer = new Drawer(model, this);
     drawer->draw();
-//        Drawer* drawer = Drawer::createDrawer(req);
-//        ModelItem* root = req->model->getRoot();
-//        drawer->draw(root);
+}
+
+void GraphWidget::reset()
+{
+    for (ViewNode* vnode : nodes) {
+        aScene->removeItem(vnode);
+    }
+    for (ViewEdge* vedge : edges) {
+        aScene->removeItem(vedge);
+    }
 }
 
 void GraphWidget::itemMoved()
 {
     if (!timerId)
         timerId = startTimer(1000 / 25);
-}
-
-void GraphWidget::addItem(ViewNode *item, QString &label, ViewNode* parent)
-{
-//    nodes.push_back(new ViewNode(this, label));
-    //    edges.push_back(new Edge(item, parent));
 }
 
 void GraphWidget::addItem(ModelItem* item)

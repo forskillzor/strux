@@ -46,6 +46,7 @@ ControlPanel::ControlPanel(QApplication *app) : QWidget(nullptr), application(ap
     // CONNECTIONS
     connect(applyButton, &QPushButton::clicked, this, &ControlPanel::apply);
     connect(quitButton, &QPushButton::clicked, qApp, &QCoreApplication::quit);
+    connect(resetButton, &QPushButton::clicked, this, &ControlPanel::reset);
 }
 
 void ControlPanel::setGraph(GraphWidget *pgraph)
@@ -59,4 +60,9 @@ void ControlPanel::apply()
         graph->addItem(new BinaryTreeNode(val));
     }
     graph->drawModel();
+}
+
+void ControlPanel::reset()
+{
+    graph->reset();
 }

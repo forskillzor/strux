@@ -7,7 +7,7 @@
 
 
 class ViewNode;
-class Edge;
+class ViewEdge;
 class GraphWidget;
 class Algorithm;
 
@@ -18,15 +18,12 @@ class ViewItem {
 class ViewNode : public QGraphicsItem, public ViewItem
 {
 public:
-    ViewNode(GraphWidget *graphWidget, QString &label);
+    ViewNode(QString &label);
 
     QString label;
-    ViewNode* left;
-    ViewNode* right;
-    Algorithm* algorithm = nullptr;
 
-    void addEdge(Edge *edge);
-    QVector<Edge *> edges() const;
+    void addEdge(ViewEdge *edge);
+    QVector<ViewEdge *> edges() const;
 
     enum { Type = UserType + 1 };
     int type() const override { return Type; }
@@ -51,7 +48,7 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
-    QVector<Edge *> edgeList;
+    QVector<ViewEdge *> edgeList;
     QPointF newPos;
     GraphWidget *graph;
     int width;

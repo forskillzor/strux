@@ -5,10 +5,10 @@
 
 class ViewNode;
 
-class Edge : public QGraphicsItem
+class ViewEdge : public QGraphicsItem
 {
 public:
-    Edge(ViewNode *sourceNode, ViewNode *destNode);
+    ViewEdge(ViewNode *sourceNode, ViewNode *destNode);
 
     ViewNode *sourceNode() const;
     ViewNode *destNode() const;

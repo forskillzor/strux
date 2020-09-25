@@ -16,8 +16,8 @@ public:
     GraphWidget(QWidget *parent = nullptr);
 
     void drawModel();
+    void reset();
     void itemMoved();
-    void addItem(ViewNode* item, QString &label, ViewNode* parent = nullptr);
     void addItem(ModelItem* item);
     QGraphicsScene* getScene() { return aScene; }
 
@@ -41,8 +41,9 @@ private:
     int timerId = 0;
     QGraphicsScene *aScene = nullptr;
     Model* model = nullptr;
+public:
     QVector<ViewNode *> nodes;
-    QVector<Edge *> edges;
+    QVector<ViewEdge *> edges;
 
 };
 

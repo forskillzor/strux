@@ -4,7 +4,7 @@
 #include <QPainter>
 #include <QtMath>
 
-Edge::Edge(ViewNode *sourceNode, ViewNode *destNode)
+ViewEdge::ViewEdge(ViewNode *sourceNode, ViewNode *destNode)
     : source(sourceNode), dest(destNode)
 {
     setAcceptedMouseButtons(Qt::NoButton);
@@ -13,17 +13,17 @@ Edge::Edge(ViewNode *sourceNode, ViewNode *destNode)
     adjust();
 }
 
-ViewNode *Edge::sourceNode() const
+ViewNode *ViewEdge::sourceNode() const
 {
     return source;
 }
 
-ViewNode *Edge::destNode() const
+ViewNode *ViewEdge::destNode() const
 {
     return dest;
 }
 
-void Edge::adjust()
+void ViewEdge::adjust()
 {
     if (!source || !dest)
         return;
@@ -42,7 +42,7 @@ void Edge::adjust()
     }
 }
 
-QRectF Edge::boundingRect() const
+QRectF ViewEdge::boundingRect() const
 {
     if (!source || !dest)
         return QRectF();
@@ -56,7 +56,7 @@ QRectF Edge::boundingRect() const
         .adjusted(-extra, -extra, extra, extra);
 }
 
-void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void ViewEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     if (!source || !dest)
         return;

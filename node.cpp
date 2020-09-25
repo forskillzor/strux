@@ -7,8 +7,8 @@
 #include <QPainter>
 #include <QStyleOption>
 
-ViewNode::ViewNode(GraphWidget *graphWidget, QString &l)
-    : label(l), graph(graphWidget)
+ViewNode::ViewNode(QString &l)
+    : label(l)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
@@ -19,13 +19,13 @@ ViewNode::ViewNode(GraphWidget *graphWidget, QString &l)
     height = 40;
 }
 
-void ViewNode::addEdge(Edge *edge)
+void ViewNode::addEdge(ViewEdge *edge)
 {
     edgeList << edge;
     edge->adjust();
 }
 
-QVector<Edge *> ViewNode::edges() const
+QVector<ViewEdge *> ViewNode::edges() const
 {
     return edgeList;
 }
@@ -58,7 +58,7 @@ void ViewNode::calculateForces()
 
     // Now subtract all forces pulling items together
     double weight = (edgeList.size() + 1) * 10;
-    for (const Edge *edge : qAsConst(edgeList)) {
+    for (const ViewEdge *edge : qAsConst(edgeList)) {
         QPointF vec;
         if (edge->sourceNode() == this)
             vec = mapToItem(edge->destNode(), 0, 0);
@@ -132,9 +132,9 @@ QVariant ViewNode::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     switch (change) {
     case ItemPositionHasChanged:
-        for (Edge *edge : qAsConst(edgeList))
+        for (ViewEdge *edge : qAsConst(edgeList))
             edge->adjust();
-        graph->itemMoved();
+//        graph->itemMoved();
         break;
     default:
         break;

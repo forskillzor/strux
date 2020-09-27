@@ -2,7 +2,6 @@
 #define GRAPHWIDGET_H
 
 #include <QGraphicsView>
-#include "edge.h"
 #include "model.h"
 #include "drawer.h"
 
@@ -16,9 +15,9 @@ public:
     GraphWidget(QWidget *parent = nullptr);
 
     void drawModel();
+    void readData();
     void reset();
     void itemMoved();
-    void addItem(ModelItem* item);
     QGraphicsScene* getScene() { return aScene; }
 
 public slots:
@@ -31,6 +30,7 @@ protected:
     void timerEvent(QTimerEvent *event) override;
 #if QT_CONFIG(wheelevent)
     void wheelEvent(QWheelEvent *event) override;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
 #endif
     void drawBackground(QPainter *painter, const QRectF &rect) override;
 

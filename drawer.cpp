@@ -2,8 +2,7 @@
 
 #include "graphwidget.h"
 #include "drawer.h"
-#include "node.h"
-#include "edge.h"
+#include "view.h"
 #include "model.h"
 
 Drawer::Drawer(Model* pmodel, GraphWidget* pwidget)
@@ -18,7 +17,6 @@ void Drawer::draw(ModelItem *item, ViewNode *vparent, qreal x, qreal y)
 {
     switch(type) {
     case ModelType::Empty:
-        qDebug() << "Empty model";
         break;
     case ModelType::Tree:
         BinaryTreeDrawer* drawer = new BinaryTreeDrawer(model, widget);
@@ -37,10 +35,13 @@ void BinaryTreeDrawer::draw(ModelItem *item,
                             qreal x,
                             qreal y)
 {
+    static int xshift = 200;
+    static int yshift = 50;
     if (item) {
         BinaryTreeNode* node = static_cast<BinaryTreeNode*>(item);
         QString label = QString::number(node->getValue());
         ViewNode *vnode = new ViewNode(label);
+
         widget->nodes.push_back(vnode);
         vnode->setPos(x, y);
         scene->addItem(vnode);
@@ -48,16 +49,14 @@ void BinaryTreeDrawer::draw(ModelItem *item,
         if (vparent) {
             ViewEdge *edge = new ViewEdge(vnode, vparent);
             widget->edges.push_back(edge);
-            vnode->setPos(x, y);
-
             scene->addItem(edge);
         }
 
         if (node->left) {
-            draw(node->left, vnode, x-50, y+50);
+            draw(node->left, vnode, (x-xshift/node->level), y+yshift);
         }
         if (node->right) {
-            draw(node->right, vnode, x+50, y+50);
+            draw(node->right, vnode, (x+xshift/node->level), y+yshift);
         }
     }
     else

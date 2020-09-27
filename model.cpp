@@ -5,6 +5,11 @@
  * Factory
  */
 
+Model::Model()
+{
+    data = generateData();
+}
+
 Model* Model::createModel(ModelType type)
 {
     switch (type) {
@@ -15,13 +20,36 @@ Model* Model::createModel(ModelType type)
     }
 }
 
-/* Implementations TreeModel
+QVector<int>* Model::generateData()
+{
+    QVector<int>* result = new QVector<int>;
+    QRandomGenerator* generator = new QRandomGenerator;
+    QTime timer(QTime::currentTime());
+    generator->seed(timer.msecsSinceStartOfDay());
+    for (int i = 0; i < 20; ++i) {
+        result->push_back(generator->bounded(0,100));
+    }
+    return result;
+}
+
+void Model::readData(QVector<int>* pdata )
+{
+    for (int val : *pdata) {
+        addItem(new BinaryTreeNode(val));
+    }
+}
+
+void Model::clear()
+{
+    root = nullptr;
+    qDebug() << "Clear model";
+}
+
+/*
+ *  Implementations TreeModel
  */
 
-TreeModel::TreeModel() : Model()
-{
-    type = ModelType::Tree;
-}
+TreeModel::TreeModel() : Model() { type = ModelType::Tree; }
 
 void TreeModel::addItem(ModelItem *item)
 {
@@ -32,27 +60,22 @@ void TreeModel::addItem(ModelItem *item)
     }
 }
 
-void TreeModel::removeItem()
-{
-}
+void TreeModel::removeItem() { }
 
-ModelItem *TreeModel::getRoot()
-{
-    return root;
-}
+ModelItem *TreeModel::getRoot() { return root; }
 
-ModelType TreeModel::getType()
-{
-    return type;
-}
+//ModelItem* TreeModel::getRoot()
+//{
+//    return root;
+//}
 
-/* Implementations BinaryTreeNode
+ModelType TreeModel::getType() { return type; }
+
+/*
+ * Implementations BinaryTreeNode
  */
 
-BinaryTreeNode::BinaryTreeNode(int val) : ModelItem()
-{
-    value = val;
-}
+BinaryTreeNode::BinaryTreeNode(int val) : ModelItem() { value = val; }
 
 void BinaryTreeNode::setParent(ModelItem *pparent)
 {
@@ -63,6 +86,7 @@ void BinaryTreeNode::setParent(ModelItem *pparent)
 void BinaryTreeNode::addItem(ModelItem *item)
 {
     BinaryTreeNode* node = static_cast<BinaryTreeNode*>(item);
+    node->level++;
 
     if (node->getValue() < value) {
         if (left) {
@@ -91,3 +115,4 @@ void BinaryTreeNode::addItem(ModelItem *item)
 void BinaryTreeNode::removeItem()
 {
 }
+

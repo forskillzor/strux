@@ -56,9 +56,7 @@ void ControlPanel::setGraph(GraphWidget *pgraph)
 
 void ControlPanel::apply()
 {
-    for (int val : data) {
-        graph->addItem(new BinaryTreeNode(val));
-    }
+    graph->readData();
     graph->drawModel();
 }
 

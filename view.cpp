@@ -1,22 +1,102 @@
-#include "edge.h"
-#include "node.h"
+#include "view.h"
 #include "graphwidget.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
+#include <QtMath>
+
+ViewEdge::ViewEdge(ViewNode *sourceNode, ViewNode *destNode)
+    : source(sourceNode), dest(destNode)
+{
+    setAcceptedMouseButtons(Qt::NoButton);
+    source->addEdge(this);
+    dest->addEdge(this);
+    adjust();
+}
+
+ViewNode *ViewEdge::sourceNode() const
+{
+    return source;
+}
+
+ViewNode *ViewEdge::destNode() const
+{
+    return dest;
+}
+
+void ViewEdge::adjust()
+{
+    if (!source || !dest)
+        return;
+
+    QLineF line(mapFromItem(source, 0, 0), mapFromItem(dest, 0, 0));
+    qreal length = line.length();
+
+    prepareGeometryChange();
+
+    if (length > qreal(20.)) {
+        QPointF edgeOffset((line.dx() * (source->getWidth()/2)) / length, (line.dy() * (source->getHeight()/2)) / length);
+        sourcePoint = line.p1() + edgeOffset;
+        destPoint = line.p2() - edgeOffset;
+    } else {
+        sourcePoint = destPoint = line.p1();
+    }
+}
+
+QRectF ViewEdge::boundingRect() const
+{
+    if (!source || !dest)
+        return QRectF();
+
+    qreal penWidth = 1;
+    qreal extra = (penWidth + arrowSize) / 2.0;
+
+    return QRectF(sourcePoint, QSizeF(destPoint.x() - sourcePoint.x(),
+                                      destPoint.y() - sourcePoint.y()))
+        .normalized()
+        .adjusted(-extra, -extra, extra, extra);
+}
+
+void ViewEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+{
+    if (!source || !dest)
+        return;
+
+    QLineF line(sourcePoint, destPoint);
+    if (qFuzzyCompare(line.length(), qreal(0.)))
+        return;
+
+    // Draw the line itself
+    painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    painter->drawLine(line);
+
+    // Draw the arrows
+    double angle = std::atan2(-line.dy(), line.dx());
+
+    QPointF sourceArrowP1 = sourcePoint + QPointF(sin(angle + M_PI / 3) * arrowSize,
+                                                  cos(angle + M_PI / 3) * arrowSize);
+    QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + M_PI - M_PI / 3) * arrowSize,
+                                                  cos(angle + M_PI - M_PI / 3) * arrowSize);
+    QPointF destArrowP1 = destPoint + QPointF(sin(angle - M_PI / 3) * arrowSize,
+                                              cos(angle - M_PI / 3) * arrowSize);
+    QPointF destArrowP2 = destPoint + QPointF(sin(angle - M_PI + M_PI / 3) * arrowSize,
+                                              cos(angle - M_PI + M_PI / 3) * arrowSize);
+
+    painter->setBrush(Qt::black);
+    painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
+    painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
+}
 
 ViewNode::ViewNode(QString &l)
-    : label(l)
+    : label(l), width(40), height(40)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setAcceptHoverEvents(true);
     setZValue(-1);
-    width = 40;
-    height = 40;
 }
 
 void ViewNode::addEdge(ViewEdge *edge)
@@ -28,62 +108,6 @@ void ViewNode::addEdge(ViewEdge *edge)
 QVector<ViewEdge *> ViewNode::edges() const
 {
     return edgeList;
-}
-
-void ViewNode::calculateForces()
-{
-    if (!scene() || scene()->mouseGrabberItem() == this) {
-        newPos = pos();
-        return;
-    }
-
-    // Sum up all forces pushing this item away
-    qreal xvel = 0;
-    qreal yvel = 0;
-    const QList<QGraphicsItem *> items = scene()->items();
-    for (QGraphicsItem *item : items) {
-        ViewNode *node = qgraphicsitem_cast<ViewNode *>(item);
-        if (!node)
-            continue;
-
-        QPointF vec = mapToItem(node, 0, 0);
-        qreal dx = vec.x();
-        qreal dy = vec.y();
-        double l = 2.0 * (dx * dx + dy * dy);
-        if (l > 0) {
-            xvel += (dx * 150.0) / l;
-            yvel += (dy * 150.0) / l;
-        }
-    }
-
-    // Now subtract all forces pulling items together
-    double weight = (edgeList.size() + 1) * 10;
-    for (const ViewEdge *edge : qAsConst(edgeList)) {
-        QPointF vec;
-        if (edge->sourceNode() == this)
-            vec = mapToItem(edge->destNode(), 0, 0);
-        else
-            vec = mapToItem(edge->sourceNode(), 0, 0);
-        xvel -= vec.x() / weight;
-        yvel -= vec.y() / weight;
-    }
-
-    if (qAbs(xvel) < 0.1 && qAbs(yvel) < 0.1)
-        xvel = yvel = 0;
-
-    QRectF sceneRect = scene()->sceneRect();
-    newPos = pos() + QPointF(xvel, yvel);
-    newPos.setX(qMin(qMax(newPos.x(), sceneRect.left() + 10), sceneRect.right() - 10));
-    newPos.setY(qMin(qMax(newPos.y(), sceneRect.top() + 10), sceneRect.bottom() - 10));
-}
-
-bool ViewNode::advancePosition()
-{
-    if (newPos == pos())
-        return false;
-
-    setPos(newPos);
-    return true;
 }
 
 QRectF ViewNode::boundingRect() const
@@ -154,3 +178,4 @@ void ViewNode::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     update();
     QGraphicsItem::mouseReleaseEvent(event);
 }
+

@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QString>
 
+#include "model.h"
 
 class ViewNode;
 class ViewEdge;
@@ -12,7 +13,36 @@ class GraphWidget;
 class Algorithm;
 
 class ViewItem {
+public:
+    enum class ViewItemType { Edge = 1, Node };
+    static ViewItem* create(ViewItemType type);
+};
 
+class ViewNode;
+
+class ViewEdge : public QGraphicsItem, public ViewItem
+{
+public:
+    ViewEdge(ViewNode *sourceNode, ViewNode *destNode);
+
+    ViewNode *sourceNode() const;
+    ViewNode *destNode() const;
+
+    void adjust();
+
+    enum { Type = UserType + 2 };
+    int type() const override { return Type; }
+
+protected:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+private:
+    ViewNode *source, *dest;
+
+    QPointF sourcePoint;
+    QPointF destPoint;
+    qreal arrowSize = 5;
 };
 
 class ViewNode : public QGraphicsItem, public ViewItem
@@ -27,9 +57,6 @@ public:
 
     enum { Type = UserType + 1 };
     int type() const override { return Type; }
-
-    void calculateForces();
-    bool advancePosition();
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;

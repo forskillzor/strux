@@ -21,9 +21,6 @@ private:
     void apply();
     void reset();
 
-    QVector<int> data {48, 43, 2, 39, 59, 12, 0, 76, 32, 59, 34, 11, 34, 58,
-                      36, 21, 10, 45, 48, 32, 13, 73, 35, 48, 43, 2, 39, 59, 12, 0, 76, 32, 59, 34, 11, 34, 58,
-                      36, 21, 10, 45, 48, 32, 13, 73, 35};
 
     QApplication *application = nullptr;
     Model* model = nullptr;

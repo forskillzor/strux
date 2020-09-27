@@ -356,42 +356,42 @@
                             <qlist>
                              <item>
                               <MClassMember>
-                               <uid>{16394103-5c60-46cc-86bc-f51cc5dbba35}</uid>
+                               <uid>{9ac05c24-6fc1-4648-a546-78ca97acdf6a}</uid>
                                <type>1</type>
                                <declaration>Algorithm *algorithm</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{79db5056-6471-422c-b11d-4574ccdff6a9}</uid>
+                               <uid>{b2da2b75-e76b-4ac3-8229-7265560e70e4}</uid>
                                <type>1</type>
                                <declaration>Model *model</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{8008cc0c-d46e-4014-a1e3-6f5ed9d62048}</uid>
+                               <uid>{96708f1e-235f-4c68-ae7d-68d1f7b280c2}</uid>
                                <type>1</type>
                                <declaration>QVector&lt;int&gt; data {}</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{227abd43-3c41-49d5-bc06-14ff0f18ad40}</uid>
+                               <uid>{d326d8a4-26ee-4526-aacb-f42463253d62}</uid>
                                <type>2</type>
                                <declaration>setGraphic(GraphWidget*)</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{718b77c2-7e9a-4408-91a1-668d0bba992d}</uid>
+                               <uid>{e043432f-c8c3-4120-afef-ba571d53bd20}</uid>
                                <type>2</type>
                                <declaration>setModel(Model*)</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{2c294556-013b-4da6-919a-5c9791bc2b77}</uid>
+                               <uid>{e5b370ea-b64d-4102-a93f-a24a4251ee1b}</uid>
                                <type>2</type>
                                <declaration>apply()</declaration>
                               </MClassMember>
@@ -1132,21 +1132,21 @@
                             <qlist>
                              <item>
                               <MClassMember>
-                               <uid>{8f0968b7-ec8b-4ddf-9d90-d53103dc598f}</uid>
+                               <uid>{86eea7f1-42af-457a-b55b-e86b73fccd95}</uid>
                                <type>1</type>
                                <declaration>QVectror&lt;ModelItem*&gt; elements</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{6fd84a0d-1545-4af1-854a-8cd4b7c32423}</uid>
+                               <uid>{4fc85b75-1765-45d4-a7cb-1fa2d99b26da}</uid>
                                <type>2</type>
                                <declaration>changeItemType(type)</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{b60b2bf8-6d25-4b1f-a59a-fb568c5ec44b}</uid>
+                               <uid>{31f6a296-5d95-4dfc-8f61-4bc55cca2170}</uid>
                                <type>2</type>
                                <declaration>addItem(ModelItem)</declaration>
                               </MClassMember>
@@ -1172,7 +1172,7 @@
                                <flags>1</flags>
                               </MElement>
                              </base-MElement>
-                             <name>ViewElement</name>
+                             <name>ViewItem</name>
                              <relations>
                               <handles>
                                <handles>
@@ -1425,21 +1425,21 @@
                             <qlist>
                              <item>
                               <MClassMember>
-                               <uid>{65a965e0-f058-423e-a6e1-63cbab479137}</uid>
+                               <uid>{3e0fb50b-961c-4506-b3c7-2053f309b3f2}</uid>
                                <type>1</type>
                                <declaration>Algorithm *algorithm</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{5618c393-98db-452a-8f7b-025a33a1f57c}</uid>
+                               <uid>{08196318-2d97-4349-9543-47cc22472b2e}</uid>
                                <type>2</type>
                                <declaration>addNode(*node)</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{4584353d-d75a-42b6-a437-a01bf4bc0e7f}</uid>
+                               <uid>{139724f8-211c-4ad4-8c90-175e55713bd5}</uid>
                                <type>2</type>
                                <declaration>setParent(*node)</declaration>
                               </MClassMember>
@@ -2122,7 +2122,7 @@
                                     </base-DElement>
                                     <object>{a988b2e3-4725-4a97-ac00-b34bf57e5e71}</object>
                                     <name>Algorithm</name>
-                                    <pos>x:615;y:635</pos>
+                                    <pos>x:595;y:640</pos>
                                     <rect>x:-40;y:-45;w:80;h:90</rect>
                                     <visual-role>6</visual-role>
                                     <visual-role2>2</visual-role2>
@@ -2144,7 +2144,7 @@
                                     </base-DElement>
                                     <object>{ba82762e-24d2-4cfc-ab41-e8027610d6ac}</object>
                                     <name>ControlPanel</name>
-                                    <pos>x:150;y:240</pos>
+                                    <pos>x:125;y:235</pos>
                                     <rect>x:-80;y:-85;w:160;h:170</rect>
                                     <visual-role>0</visual-role>
                                    </DObject>
@@ -2165,7 +2165,7 @@
                                     </base-DElement>
                                     <object>{1f945482-c68f-4e54-adb6-5d7c341882cc}</object>
                                     <name>GraphWidget</name>
-                                    <pos>x:375;y:245</pos>
+                                    <pos>x:350;y:240</pos>
                                     <rect>x:-85;y:-100;w:170;h:200</rect>
                                     <visual-role>0</visual-role>
                                    </DObject>
@@ -2186,7 +2186,7 @@
                                     </base-DElement>
                                     <object>{1280026c-96c3-4d10-85ff-eae36b0381e5}</object>
                                     <name>Model</name>
-                                    <pos>x:615;y:245</pos>
+                                    <pos>x:595;y:240</pos>
                                     <rect>x:-95;y:-60;w:190;h:120</rect>
                                     <visual-role>6</visual-role>
                                     <visual-role2>2</visual-role2>
@@ -2207,8 +2207,8 @@
                                      </DElement>
                                     </base-DElement>
                                     <object>{68d7f40f-5d9a-452a-b06b-eb0984cb1ebb}</object>
-                                    <name>ViewElement</name>
-                                    <pos>x:240;y:730</pos>
+                                    <name>ViewItem</name>
+                                    <pos>x:215;y:735</pos>
                                     <rect>x:-65;y:-60;w:130;h:120</rect>
                                     <visual-role>6</visual-role>
                                     <visual-role2>2</visual-role2>
@@ -2230,7 +2230,7 @@
                                     </base-DElement>
                                     <object>{20ed9c5d-d8ad-4137-a3af-1f1b4934470e}</object>
                                     <name>TreeModel</name>
-                                    <pos>x:700;y:415</pos>
+                                    <pos>x:680;y:410</pos>
                                     <rect>x:-40;y:-35;w:80;h:70</rect>
                                     <visual-role>0</visual-role>
                                    </DObject>
@@ -2251,7 +2251,7 @@
                                     </base-DElement>
                                     <object>{7ea8e2b1-857c-4f4e-be0b-1b53c22077b9}</object>
                                     <name>BinaryTreeAlgorytm</name>
-                                    <pos>x:615;y:780</pos>
+                                    <pos>x:595;y:785</pos>
                                     <rect>x:-65;y:-50;w:130;h:100</rect>
                                     <visual-role>0</visual-role>
                                    </DObject>
@@ -2272,7 +2272,7 @@
                                     </base-DElement>
                                     <object>{775e5f97-f451-4e6e-b363-16be9f886a61}</object>
                                     <name>Edge</name>
-                                    <pos>x:380;y:890</pos>
+                                    <pos>x:355;y:895</pos>
                                     <rect>x:-60;y:-45;w:120;h:90</rect>
                                     <visual-role>0</visual-role>
                                    </DObject>
@@ -2293,7 +2293,7 @@
                                     </base-DElement>
                                     <object>{19225a74-9b84-4068-b32f-0467f57d3e90}</object>
                                     <name>QGraphicsScene</name>
-                                    <pos>x:155;y:420</pos>
+                                    <pos>x:130;y:415</pos>
                                     <rect>x:-90;y:-40;w:180;h:80</rect>
                                     <visual-role>0</visual-role>
                                    </DObject>
@@ -2350,7 +2350,7 @@
                                     </base-DElement>
                                     <object>{f16bcb2c-ed41-47f0-a407-fa6868a86482}</object>
                                     <name>QWidget</name>
-                                    <pos>x:150;y:80</pos>
+                                    <pos>x:125;y:75</pos>
                                     <rect>x:-40;y:-30;w:80;h:60</rect>
                                     <visual-role>0</visual-role>
                                     <visual-role2>3</visual-role2>
@@ -2389,7 +2389,7 @@
                                     </base-DElement>
                                     <object>{5577666b-0701-4c6e-81cf-875855c9707f}</object>
                                     <name>ModelItem</name>
-                                    <pos>x:875;y:245</pos>
+                                    <pos>x:855;y:240</pos>
                                     <rect>x:-95;y:-75;w:190;h:150</rect>
                                     <auto-sized>false</auto-sized>
                                     <visual-role>6</visual-role>
@@ -2412,7 +2412,7 @@
                                     </base-DElement>
                                     <object>{c09a9c97-c224-4e10-ba39-98e28882462d}</object>
                                     <name>BinaryTreeNode</name>
-                                    <pos>x:875;y:445</pos>
+                                    <pos>x:855;y:440</pos>
                                     <rect>x:-75;y:-65;w:150;h:130</rect>
                                     <visual-role>0</visual-role>
                                    </DObject>
@@ -2433,7 +2433,7 @@
                                     </base-DElement>
                                     <object>{7d43a744-b125-4d26-ba91-0d4310b94a0d}</object>
                                     <name>QGraphicsItem</name>
-                                    <pos>x:235;y:595</pos>
+                                    <pos>x:200;y:580</pos>
                                     <rect>x:-50;y:-30;w:100;h:60</rect>
                                     <visual-role>0</visual-role>
                                     <visual-role2>3</visual-role2>
@@ -2471,7 +2471,7 @@
                                   <text>Algorithm
 
 </text>
-                                  <pos>x:620;y:700</pos>
+                                  <pos>x:600;y:705</pos>
                                   <rect>x:-90;y:-155;w:180;h:310</rect>
                                  </DBoundary>
                                 </instance>
@@ -2486,7 +2486,7 @@
                                   </base-DElement>
                                   <text>View
 </text>
-                                  <pos>x:315;y:740</pos>
+                                  <pos>x:290;y:745</pos>
                                   <rect>x:-160;y:-230;w:320;h:460</rect>
                                  </DBoundary>
                                 </instance>
@@ -2500,7 +2500,7 @@
                                    </DElement>
                                   </base-DElement>
                                   <text>MainWindow</text>
-                                  <pos>x:255;y:255</pos>
+                                  <pos>x:230;y:250</pos>
                                   <rect>x:-225;y:-240;w:450;h:480</rect>
                                  </DBoundary>
                                 </instance>
@@ -2514,7 +2514,7 @@
                                    </DElement>
                                   </base-DElement>
                                   <text>DataStructure</text>
-                                  <pos>x:745;y:300</pos>
+                                  <pos>x:725;y:295</pos>
                                   <rect>x:-250;y:-230;w:500;h:460</rect>
                                  </DBoundary>
                                 </instance>
@@ -2531,7 +2531,7 @@
                                     </base-DElement>
                                     <object>{9eceb670-8163-44d2-a4b1-43361e0056da}</object>
                                     <name>QGraphicsView</name>
-                                    <pos>x:375;y:75</pos>
+                                    <pos>x:350;y:70</pos>
                                     <rect>x:-50;y:-30;w:100;h:60</rect>
                                     <visual-role>0</visual-role>
                                     <visual-role2>3</visual-role2>
@@ -2588,7 +2588,7 @@
                                     </base-DElement>
                                     <object>{a2125a50-7e37-46a4-9a12-c49972d3a558}</object>
                                     <name>ViewNode</name>
-                                    <pos>x:220;y:895</pos>
+                                    <pos>x:195;y:900</pos>
                                     <rect>x:-40;y:-40;w:80;h:80</rect>
                                     <visual-role>0</visual-role>
                                    </DObject>
@@ -2645,8 +2645,8 @@
                                     </base-DElement>
                                     <object>{7898c8c7-e138-40b8-96d6-3bec070b0a9b}</object>
                                     <name>Drawer</name>
-                                    <pos>x:370;y:590</pos>
-                                    <rect>x:-75;y:-45;w:150;h:90</rect>
+                                    <pos>x:355;y:595</pos>
+                                    <rect>x:-90;y:-45;w:180;h:90</rect>
                                     <visual-role>6</visual-role>
                                     <visual-role2>2</visual-role2>
                                    </DObject>
@@ -2692,7 +2692,7 @@
                                     </base-DElement>
                                     <object>{43c12aba-8bac-4ec8-a9e2-b86dd17cc328}</object>
                                     <name>BinaryTreeDrawer</name>
-                                    <pos>x:385;y:745</pos>
+                                    <pos>x:360;y:750</pos>
                                     <rect>x:-60;y:-40;w:120;h:80</rect>
                                     <visual-role>0</visual-role>
                                    </DObject>
@@ -2856,9 +2856,57 @@
                                  </DAssociation>
                                 </instance>
                                </item>
+                               <item>
+                                <instance type="DClass">
+                                 <DClass>
+                                  <base-DObject>
+                                   <DObject>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{cd15fe26-6e89-4e9d-b170-76d18f002f54}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{683cda1f-9389-4dc3-9ce3-bb9412b485af}</object>
+                                    <stereotypes>
+                                     <qlist>
+                                      <item>entity</item>
+                                     </qlist>
+                                    </stereotypes>
+                                    <name>input</name>
+                                    <pos>x:515;y:115</pos>
+                                    <rect>x:-20;y:-20;w:40;h:40</rect>
+                                    <visual-role>0</visual-role>
+                                   </DObject>
+                                  </base-DObject>
+                                 </DClass>
+                                </instance>
+                               </item>
+                               <item>
+                                <instance type="DAssociation">
+                                 <DAssociation>
+                                  <base-DRelation>
+                                   <DRelation>
+                                    <base-DElement>
+                                     <DElement>
+                                      <uid>{87d594f9-9c24-4595-b148-13f2e64971e6}</uid>
+                                     </DElement>
+                                    </base-DElement>
+                                    <object>{10639dc6-d6a6-4679-8788-09cc8d55ed1f}</object>
+                                    <a>{cd15fe26-6e89-4e9d-b170-76d18f002f54}</a>
+                                    <b>{330982e4-6952-421e-8721-ec86a5be38b2}</b>
+                                   </DRelation>
+                                  </base-DRelation>
+                                  <a>
+                                   <DAssociationEnd>
+                                    <navigable>true</navigable>
+                                   </DAssociationEnd>
+                                  </a>
+                                 </DAssociation>
+                                </instance>
+                               </item>
                               </qlist>
                              </elements>
-                             <last-modified>1601012060625</last-modified>
+                             <last-modified>1601036471240</last-modified>
                              <toolbarid>Classes</toolbarid>
                             </MDiagram>
                            </base-MDiagram>
@@ -3780,14 +3828,14 @@
                             <qlist>
                              <item>
                               <MClassMember>
-                               <uid>{2c424ab5-1c7c-4c57-aa2a-8a356b847ec5}</uid>
+                               <uid>{fe3836a0-1d0b-411b-9563-07c35440cbd6}</uid>
                                <type>2</type>
-                               <declaration>Drawer(Scene*, Model*)</declaration>
+                               <declaration>Drawer(Scene*, GraphWidget*)</declaration>
                               </MClassMember>
                              </item>
                              <item>
                               <MClassMember>
-                               <uid>{dac8c711-4c2f-40b0-9106-d117b9ff53a3}</uid>
+                               <uid>{769a86fb-5fc7-41f6-a21b-0d63701279cb}</uid>
                                <type>2</type>
                                <declaration>draw()</declaration>
                               </MClassMember>
@@ -3925,6 +3973,67 @@
                              </item>
                             </qlist>
                            </members>
+                          </MClass>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{683cda1f-9389-4dc3-9ce3-bb9412b485af}</uid>
+                        <target>
+                         <instance type="MClass">
+                          <MClass>
+                           <base-MObject>
+                            <MObject>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{683cda1f-9389-4dc3-9ce3-bb9412b485af}</uid>
+                               <stereotypes>
+                                <qlist>
+                                 <item>entity</item>
+                                </qlist>
+                               </stereotypes>
+                              </MElement>
+                             </base-MElement>
+                             <name>input</name>
+                             <relations>
+                              <handles>
+                               <handles>
+                                <qlist>
+                                 <item>
+                                  <handle>
+                                   <uid>{10639dc6-d6a6-4679-8788-09cc8d55ed1f}</uid>
+                                   <target>
+                                    <instance type="MAssociation">
+                                     <MAssociation>
+                                      <base-MRelation>
+                                       <MRelation>
+                                        <base-MElement>
+                                         <MElement>
+                                          <uid>{10639dc6-d6a6-4679-8788-09cc8d55ed1f}</uid>
+                                         </MElement>
+                                        </base-MElement>
+                                        <a>{683cda1f-9389-4dc3-9ce3-bb9412b485af}</a>
+                                        <b>{1280026c-96c3-4d10-85ff-eae36b0381e5}</b>
+                                       </MRelation>
+                                      </base-MRelation>
+                                      <a>
+                                       <MAssociationEnd>
+                                        <navigable>true</navigable>
+                                       </MAssociationEnd>
+                                      </a>
+                                     </MAssociation>
+                                    </instance>
+                                   </target>
+                                  </handle>
+                                 </item>
+                                </qlist>
+                               </handles>
+                              </handles>
+                             </relations>
+                            </MObject>
+                           </base-MObject>
                           </MClass>
                          </instance>
                         </target>

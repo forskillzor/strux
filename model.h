@@ -2,8 +2,10 @@
 #define TREEMODEL_H
 
 #include <QVector>
+#include <QRandomGenerator>
+#include <QTime>
 
-#include "node.h"
+#include "view.h"
 
 class Model;
 enum class ModelType { Empty = 0, Tree };
@@ -12,27 +14,35 @@ class ViewNode;
 class ModelItem;
 class BinaryTreeNode;
 
-/* Interface Model
+/*
+ * Interface Model
  */
 
 class Model
 {
     ModelItem *root = nullptr;
-    QVector<int> *data;
+//    QVector<int> *data;
     QVector<ModelItem*> items;
 protected:
     ModelType type = ModelType::Empty;
 public:
+    Model();
     static Model* createModel(ModelType type);
+    static QVector<int>* generateData();
     virtual void addItem(ModelItem *node) = 0;
     virtual void removeItem() = 0;
     virtual ModelItem* getRoot() = 0;
     virtual ModelType getType() = 0;
+    void readData(QVector<int>* pdata);
+    void clear();
+    QVector<int>* data;// { 'b', 's', 'z', 'w', 'a', 'i', 'o','t','v'};
 };
 
-/* Interface ModelElement
+/*
+ * Interface ModelElement
  * Abstract class for node or glyphs items of model
  */
+
 class ModelItem
 {
 
@@ -46,7 +56,8 @@ protected:
     int value;
 };
 
-/*Implementations BinaryTree Model
+/*
+ * Implementations BinaryTree Model
  */
 
 class TreeModel : public Model
@@ -64,7 +75,8 @@ private:
 };
 
 
-/* Implementations BinaryTree Node
+/*
+ * Implementations BinaryTree Node
  */
 
 class BinaryTreeNode : public ModelItem
@@ -77,6 +89,7 @@ public:
     int getValue() override { return value; };
     void setValue(int val) override { value = val; };
 
+    int level = 1;
     BinaryTreeNode* parent = nullptr;
     BinaryTreeNode* left = nullptr;
     BinaryTreeNode* right = nullptr;

@@ -4,14 +4,13 @@
 #include <QDebug>
 
 #include "graphwidget.h"
-#include "edge.h"
-#include "node.h"
+#include "view.h"
 #include "drawer.h"
 
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
-    model = new TreeModel;
+    model = Model::createModel(ModelType::Tree);
     aScene = new QGraphicsScene(this);
     aScene->setItemIndexMethod(QGraphicsScene::NoIndex);
     aScene->setSceneRect(-400, -400, 800, 800);
@@ -31,6 +30,13 @@ void GraphWidget::drawModel()
     drawer->draw();
 }
 
+void GraphWidget::readData()
+{
+    delete model->data;
+    model->data = model->generateData();
+    model->readData(model->data);
+}
+
 void GraphWidget::reset()
 {
     for (ViewNode* vnode : nodes) {
@@ -39,17 +45,13 @@ void GraphWidget::reset()
     for (ViewEdge* vedge : edges) {
         aScene->removeItem(vedge);
     }
+    model->clear();
 }
 
 void GraphWidget::itemMoved()
 {
     if (!timerId)
         timerId = startTimer(1000 / 25);
-}
-
-void GraphWidget::addItem(ModelItem* item)
-{
-    model->addItem(item);
 }
 
 void GraphWidget::keyPressEvent(QKeyEvent *event)
@@ -118,6 +120,13 @@ void GraphWidget::wheelEvent(QWheelEvent *event)
     scaleView(pow(2., -event->angleDelta().y() / 240.0));
 }
 #endif
+
+void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    QGraphicsItem* item = itemAt(event->x(), event->y());
+    ViewNode* node = static_cast<ViewNode*>(item);
+    qDebug() << node->label;
+}
 
 void GraphWidget::drawBackground(QPainter *painter, const QRectF &rect)
 {

@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QtMath>
+#include <QDebug>
 
 ViewEdge::ViewEdge(ViewNode *sourceNode, ViewNode *destNode)
     : source(sourceNode), dest(destNode)
@@ -89,14 +90,16 @@ void ViewEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 }
 
-ViewNode::ViewNode(QString &l)
-    : label(l), width(40), height(40)
+ViewNode::ViewNode(QString &l, GraphWidget* pwidget)
+    : label(l), width(40), height(40), graph(pwidget)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setAcceptHoverEvents(true);
     setZValue(-1);
+    //WARNING graph->scene()->addItem(this);
+    graph->scene()->addItem(this);
 }
 
 void ViewNode::addEdge(ViewEdge *edge)

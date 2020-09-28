@@ -42,7 +42,7 @@ private:
 class ViewNode : public QGraphicsItem
 {
 public:
-    ViewNode(QString &label);
+    ViewNode(QString &label, GraphWidget* pwidget);
 
     QString label;
 

@@ -20,8 +20,8 @@ class BinaryTreeNode;
 
 class Model
 {
-    ModelItem *root = nullptr;
 protected:
+    ModelItem *root = nullptr;
     ModelType type = ModelType::Empty;
 public:
     Model();
@@ -45,6 +45,7 @@ class ModelItem
 {
 
 public:
+    virtual ~ModelItem();
     virtual void setParent(ModelItem* pprarent) = 0;
     virtual void addItem(ModelItem* pitem) = 0;
     virtual void removeItem() = 0;
@@ -67,7 +68,7 @@ public:
     ModelItem* getRoot() override;
     ModelType getType() override;
 
-private:
+protected:
     BinaryTreeNode *root = nullptr;
 };
 
@@ -79,11 +80,13 @@ class BinaryTreeNode : public ModelItem
 {
 public:
     BinaryTreeNode(int val);
+    ~BinaryTreeNode();
     void setParent(ModelItem *prarent) override;
     void addItem(ModelItem *node) override;
     void removeItem() override;
     int getValue() override { return value; };
     void setValue(int val) override { value = val; };
+    BinaryTreeNode* addBTNode(ModelItem* pnode);
 
     BinaryTreeNode* parent = nullptr;
     BinaryTreeNode* left = nullptr;
@@ -91,7 +94,6 @@ public:
 
     int level = 1;
     int count;
-private:
 };
 
 

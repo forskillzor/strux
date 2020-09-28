@@ -44,6 +44,11 @@ void Model::clear()
     root = nullptr;
 }
 
+ModelItem::~ModelItem()
+{
+    delete this;
+}
+
 /*
  *  Implementations TreeModel
  */
@@ -71,6 +76,11 @@ ModelType TreeModel::getType() { return type; }
 
 BinaryTreeNode::BinaryTreeNode(int val) : ModelItem() { value = val; }
 
+BinaryTreeNode::~BinaryTreeNode()
+{
+    delete this;
+}
+
 void BinaryTreeNode::setParent(ModelItem *pparent)
 {
     BinaryTreeNode* node = static_cast<BinaryTreeNode*>(pparent);
@@ -87,7 +97,7 @@ void BinaryTreeNode::addItem(ModelItem *item)
             left->addItem(node);
         }
         else {
-            left = static_cast<BinaryTreeNode*>(node);
+            left = addBTNode(node);
             left->setParent(this);
             return;
         }
@@ -97,7 +107,7 @@ void BinaryTreeNode::addItem(ModelItem *item)
             right->addItem(node);
         }
         else {
-            right = static_cast<BinaryTreeNode*>(node);
+            right = addBTNode(node);
             right->setParent(this);
             return;
         }
@@ -110,3 +120,7 @@ void BinaryTreeNode::removeItem()
 {
 }
 
+BinaryTreeNode *BinaryTreeNode::addBTNode(ModelItem *pnode)
+{
+    return static_cast<BinaryTreeNode*>(pnode);
+}

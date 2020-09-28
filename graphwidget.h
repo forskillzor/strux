@@ -15,10 +15,11 @@ public:
     GraphWidget(QWidget *parent = nullptr);
 
     void drawModel();
+    void changeModel(ModelType type);
     void readData();
-    void reset();
+    void clear();
+
     void itemMoved();
-    QGraphicsScene* getScene() { return aScene; }
 
 public slots:
     void shuffle();
@@ -42,8 +43,6 @@ private:
     QGraphicsScene *aScene = nullptr;
     Model* model = nullptr;
 public:
-    QVector<ViewNode *> nodes;
-    QVector<ViewEdge *> edges;
 
 };
 

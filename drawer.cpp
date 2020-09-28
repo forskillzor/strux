@@ -9,57 +9,70 @@ Drawer::Drawer(Model* pmodel, GraphWidget* pwidget)
      :model(pmodel),
       type(pmodel->getType()),
       widget(pwidget),
-      scene(pwidget->getScene())
+      scene(pwidget->scene())
 {
 }
 
-void Drawer::draw(ModelItem *item, ViewNode *vparent, qreal x, qreal y)
+Drawer *Drawer::createDrawer(Model *pmodel, GraphWidget *pwidget)
 {
-    switch(type) {
+    switch (pmodel->getType()) {
     case ModelType::Empty:
-        break;
+        return nullptr;
     case ModelType::Tree:
-        BinaryTreeDrawer* drawer = new BinaryTreeDrawer(model, widget);
-        drawer->draw(static_cast<BinaryTreeNode*>(model->getRoot()));
-        break;
+        return new BinaryTreeDrawer(pmodel, pwidget);
     }
 }
 
-BinaryTreeDrawer::BinaryTreeDrawer(Model* pmodel, GraphWidget* pwidget)
-    : Drawer(pmodel, pwidget)
+Drawer::~Drawer()
 {
 }
 
-void BinaryTreeDrawer::draw(ModelItem *item,
+void Drawer::draw()
+{
+}
+
+void Drawer::drawItem(ModelItem *item, ViewNode *vparent, qreal x, qreal y)
+{
+}
+
+BinaryTreeDrawer::BinaryTreeDrawer(Model* pmodel, GraphWidget* pwidget)
+    :Drawer(pmodel, pwidget)
+{
+}
+
+void BinaryTreeDrawer::draw()
+{
+    drawItem(model->getRoot());
+}
+
+void BinaryTreeDrawer::drawItem (ModelItem *item,
                             ViewNode* vparent,
                             qreal x,
                             qreal y)
 {
     static int xshift = 200;
     static int yshift = 50;
+
     if (item) {
         BinaryTreeNode* node = static_cast<BinaryTreeNode*>(item);
         QString label = QString::number(node->getValue());
         ViewNode *vnode = new ViewNode(label);
 
-        widget->nodes.push_back(vnode);
         vnode->setPos(x, y);
         scene->addItem(vnode);
 
         if (vparent) {
             ViewEdge *edge = new ViewEdge(vnode, vparent);
-            widget->edges.push_back(edge);
             scene->addItem(edge);
         }
 
         if (node->left) {
-            draw(node->left, vnode, (x-xshift/node->level), y+yshift);
+            drawItem(node->left, vnode, (x-xshift/node->level), y+yshift);
         }
         if (node->right) {
-            draw(node->right, vnode, (x+xshift/node->level), y+yshift);
+            drawItem(node->right, vnode, (x+xshift/node->level), y+yshift);
         }
     }
     else
         return;
 }
-

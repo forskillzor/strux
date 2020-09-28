@@ -21,21 +21,19 @@ class BinaryTreeNode;
 class Model
 {
     ModelItem *root = nullptr;
-//    QVector<int> *data;
-    QVector<ModelItem*> items;
 protected:
     ModelType type = ModelType::Empty;
 public:
     Model();
     static Model* createModel(ModelType type);
-    static QVector<int>* generateData();
+    QVector<int>* generateData();
     virtual void addItem(ModelItem *node) = 0;
     virtual void removeItem() = 0;
     virtual ModelItem* getRoot() = 0;
     virtual ModelType getType() = 0;
     void readData(QVector<int>* pdata);
     void clear();
-    QVector<int>* data;// { 'b', 's', 'z', 'w', 'a', 'i', 'o','t','v'};
+    QVector<int>* inputData;
 };
 
 /*
@@ -70,10 +68,8 @@ public:
     ModelType getType() override;
 
 private:
-    QVector<ModelItem*> nodes;
     BinaryTreeNode *root = nullptr;
 };
-
 
 /*
  * Implementations BinaryTree Node
@@ -89,10 +85,11 @@ public:
     int getValue() override { return value; };
     void setValue(int val) override { value = val; };
 
-    int level = 1;
     BinaryTreeNode* parent = nullptr;
     BinaryTreeNode* left = nullptr;
     BinaryTreeNode* right = nullptr;
+
+    int level = 1;
     int count;
 private:
 };

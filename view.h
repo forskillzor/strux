@@ -12,15 +12,9 @@ class ViewEdge;
 class GraphWidget;
 class Algorithm;
 
-class ViewItem {
-public:
-    enum class ViewItemType { Edge = 1, Node };
-    static ViewItem* create(ViewItemType type);
-};
-
 class ViewNode;
 
-class ViewEdge : public QGraphicsItem, public ViewItem
+class ViewEdge : public QGraphicsItem
 {
 public:
     ViewEdge(ViewNode *sourceNode, ViewNode *destNode);
@@ -45,7 +39,7 @@ private:
     qreal arrowSize = 5;
 };
 
-class ViewNode : public QGraphicsItem, public ViewItem
+class ViewNode : public QGraphicsItem
 {
 public:
     ViewNode(QString &label);

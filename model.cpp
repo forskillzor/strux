@@ -7,7 +7,7 @@
 
 Model::Model()
 {
-    data = generateData();
+    inputData = generateData();
 }
 
 Model* Model::createModel(ModelType type)
@@ -42,7 +42,6 @@ void Model::readData(QVector<int>* pdata )
 void Model::clear()
 {
     root = nullptr;
-    qDebug() << "Clear model";
 }
 
 /*
@@ -63,11 +62,6 @@ void TreeModel::addItem(ModelItem *item)
 void TreeModel::removeItem() { }
 
 ModelItem *TreeModel::getRoot() { return root; }
-
-//ModelItem* TreeModel::getRoot()
-//{
-//    return root;
-//}
 
 ModelType TreeModel::getType() { return type; }
 

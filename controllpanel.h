@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QRadioButton>
 #include <QButtonGroup>
+#include <QListWidget>
 
 #include "model.h"
 
@@ -19,17 +20,14 @@ public:
 
 private:
     void apply();
-    void reset();
+    void clear();
+    void changeModel(ModelType type);
 
 
     QApplication *application = nullptr;
-    Model* model = nullptr;
     GraphWidget *graph = nullptr;
 
-    QButtonGroup *algorithmGroup;
-
-    QRadioButton *binaryTreeRadioButton;
-    QRadioButton *quickSortButton;
+    QListWidget* listWidget = nullptr;
 
     QPushButton *applyButton;
     QPushButton *resetButton;

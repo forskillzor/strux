@@ -20,4 +20,5 @@ target.path = $$[QT_INSTALL_EXAMPLES]/widgets/graphicsview/elasticnodes
 INSTALLS += target
 
 DISTFILES += \
-    elasticnodes.qmodel
+    elasticnodes.qmodel \
+    elasticnodes_refactoring.qmodel

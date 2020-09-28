@@ -26,24 +26,30 @@ GraphWidget::GraphWidget(QWidget *parent)
 
 void GraphWidget::drawModel()
 {
-    Drawer* drawer = new Drawer(model, this);
+//    Drawer* drawer = new Drawer(model, this);
+    Drawer* drawer = Drawer::createDrawer(model, this);
     drawer->draw();
+    delete drawer;
+}
+
+// WARNING
+void GraphWidget::changeModel(ModelType type)
+{
+    model = Model::createModel(type);
 }
 
 void GraphWidget::readData()
 {
-    delete model->data;
-    model->data = model->generateData();
-    model->readData(model->data);
+    delete model->inputData;
+    model->inputData = model->generateData();
+    model->readData(model->inputData);
 }
 
-void GraphWidget::reset()
+void GraphWidget::clear()
 {
-    for (ViewNode* vnode : nodes) {
-        aScene->removeItem(vnode);
-    }
-    for (ViewEdge* vedge : edges) {
-        aScene->removeItem(vedge);
+    QList<QGraphicsItem*> graphics = items();
+    for (QGraphicsItem* item : graphics) {
+        aScene->removeItem(item);
     }
     model->clear();
 }
@@ -124,8 +130,10 @@ void GraphWidget::wheelEvent(QWheelEvent *event)
 void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event)
 {
     QGraphicsItem* item = itemAt(event->x(), event->y());
-    ViewNode* node = static_cast<ViewNode*>(item);
-    qDebug() << node->label;
+    if (item) {
+        ViewNode* node = static_cast<ViewNode*>(item);
+        qDebug() << node->label;
+    }
 }
 
 void GraphWidget::drawBackground(QPainter *painter, const QRectF &rect)

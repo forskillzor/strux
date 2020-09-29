@@ -55,8 +55,7 @@ void BinaryTreeDrawer::drawItem (ModelItem *item,
 
     if (item) {
         BinaryTreeNode* node = static_cast<BinaryTreeNode*>(item);
-        QString label = QString::number(node->getValue());
-        ViewNode *vnode = new ViewNode(label, widget);
+        ViewNode *vnode = new ViewNode(node->getValue(), widget);
 
         vnode->setPos(x, y);
 

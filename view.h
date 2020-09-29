@@ -5,8 +5,6 @@
 #include <QVector>
 #include <QString>
 
-#include "model.h"
-
 class ViewNode;
 class ViewEdge;
 class GraphWidget;
@@ -41,8 +39,10 @@ private:
 
 class ViewNode : public QGraphicsItem
 {
+
 public:
-    ViewNode(QString &label, GraphWidget* pwidget);
+
+    ViewNode(int val, GraphWidget* pwidget);
 
     QString label;
 
@@ -55,6 +55,8 @@ public:
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    void addToGraph(QGraphicsItem* item);
 
     int getWidth() { return width; }
     int getHeight() { return height; }

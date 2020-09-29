@@ -21,4 +21,5 @@ INSTALLS += target
 
 DISTFILES += \
     elasticnodes.qmodel \
+    elasticnodes_refactoring.qmodel \
     elasticnodes_refactoring.qmodel

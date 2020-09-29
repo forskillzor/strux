@@ -65,8 +65,6 @@ void ControlPanel::setGraph(GraphWidget *pgraph)
 void ControlPanel::apply()
 {
     graph->readData();
-    //WARNING graph->drawModel();
-//    graph->drawModel();
 }
 
 void ControlPanel::clear()

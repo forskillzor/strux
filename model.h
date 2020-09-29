@@ -10,9 +10,9 @@
 class Model;
 enum class ModelType { Empty = 0, Tree };
 
-class ViewNode;
 class ModelItem;
 class BinaryTreeNode;
+class GraphWidget;
 
 /*
  * Interface Model
@@ -21,12 +21,16 @@ class BinaryTreeNode;
 class Model
 {
 protected:
+    GraphWidget* graph = nullptr;
     ModelItem *root = nullptr;
     ModelType type = ModelType::Empty;
+
 public:
-    Model();
-    static Model* createModel(ModelType type);
+    static Model* createModel(ModelType type, GraphWidget* pwidget);
+
+    Model(GraphWidget* pwidget);
     QVector<int>* generateData();
+    virtual ModelItem* createItem(int value);
     virtual void addItem(ModelItem *node) = 0;
     virtual void removeItem() = 0;
     virtual ModelItem* getRoot() = 0;
@@ -62,7 +66,7 @@ protected:
 class TreeModel : public Model
 {
 public:
-    explicit TreeModel();
+    explicit TreeModel(GraphWidget* pwidget);
     void addItem(ModelItem *node) override;
     void removeItem() override;
     ModelItem* getRoot() override;
@@ -76,17 +80,17 @@ protected:
  * Implementations BinaryTree Node
  */
 
-class BinaryTreeNode : public ModelItem
+class BinaryTreeNode : public ViewNode, public ModelItem
 {
 public:
-    BinaryTreeNode(int val);
-    ~BinaryTreeNode();
+    static void connect(BinaryTreeNode* parent, BinaryTreeNode* child);
+    BinaryTreeNode(int val, GraphWidget* pwidget);
+    ~BinaryTreeNode() override;
     void setParent(ModelItem *prarent) override;
     void addItem(ModelItem *node) override;
     void removeItem() override;
     int getValue() override { return value; };
     void setValue(int val) override { value = val; };
-    BinaryTreeNode* addBTNode(ModelItem* pnode);
 
     BinaryTreeNode* parent = nullptr;
     BinaryTreeNode* left = nullptr;

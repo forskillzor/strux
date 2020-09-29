@@ -10,7 +10,7 @@
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
-    model = Model::createModel(ModelType::Tree);
+    model = Model::createModel(ModelType::Tree, this);
     aScene = new QGraphicsScene(this);
     aScene->setItemIndexMethod(QGraphicsScene::NoIndex);
     aScene->setSceneRect(-400, -400, 800, 800);
@@ -35,7 +35,7 @@ void GraphWidget::drawModel()
 // WARNING
 void GraphWidget::changeModel(ModelType type)
 {
-    model = Model::createModel(type);
+    model = Model::createModel(type, this);
 }
 
 void GraphWidget::readData()
@@ -132,7 +132,8 @@ void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event)
     QGraphicsItem* item = itemAt(event->x(), event->y());
     if (item) {
         ViewNode* node = static_cast<ViewNode*>(item);
-        qDebug() << node->label;
+        BinaryTreeNode* btnode = static_cast<BinaryTreeNode*>(item);
+        qDebug() << node->label << " " << btnode->level;
     }
 }
 

@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QObject>
+#include <QVector>
 
 #include "graphwidget.h"
 #include "controllpanel.h"
@@ -17,7 +18,6 @@ int main(int argc, char **argv)
     // init control
     ControlPanel *controlPanel= new ControlPanel(&app);
     GraphWidget *graphWidget = new GraphWidget;
-    Model* dataModel = new TreeModel;
     controlPanel->setGraph(graphWidget);
 
     // init window

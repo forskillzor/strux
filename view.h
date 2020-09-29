@@ -4,11 +4,12 @@
 #include <QGraphicsItem>
 #include <QVector>
 #include <QString>
+#include <QPropertyAnimation>
+#include <QObject>
 
 class ViewNode;
 class ViewEdge;
 class GraphWidget;
-class Algorithm;
 
 class ViewNode;
 
@@ -35,13 +36,14 @@ private:
     QPointF sourcePoint;
     QPointF destPoint;
     qreal arrowSize = 5;
+
+    //TODO todo animation imp
+    QPropertyAnimation* animation = nullptr;
 };
 
 class ViewNode : public QGraphicsItem
 {
-
 public:
-
     ViewNode(int val, GraphWidget* pwidget);
 
     QString label;

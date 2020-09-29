@@ -5,7 +5,6 @@
 
 #include "graphwidget.h"
 #include "view.h"
-#include "drawer.h"
 
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
@@ -24,15 +23,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     setWindowTitle(tr("Elastic Nodes"));
 }
 
-void GraphWidget::drawModel()
-{
-//    Drawer* drawer = new Drawer(model, this);
-    Drawer* drawer = Drawer::createDrawer(model, this);
-    drawer->draw();
-    delete drawer;
-}
-
-// WARNING
+//WARNING what is?
 void GraphWidget::changeModel(ModelType type)
 {
     model = Model::createModel(type, this);
@@ -132,8 +123,8 @@ void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event)
     QGraphicsItem* item = itemAt(event->x(), event->y());
     if (item) {
         ViewNode* node = static_cast<ViewNode*>(item);
-        BinaryTreeNode* btnode = static_cast<BinaryTreeNode*>(item);
-        qDebug() << node->label << " " << btnode->level;
+//        BinaryTreeNode* btnode = static_cast<BinaryTreeNode*>(item);
+//        qDebug() << node->label << " " << btnode->level;
     }
 }
 
@@ -182,8 +173,6 @@ void GraphWidget::scaleView(qreal scaleFactor)
     scale(scaleFactor, scaleFactor);
 }
 
-
-
 void GraphWidget::shuffle()
 {
     const QList<QGraphicsItem *> items = scene()->items();
@@ -202,3 +191,4 @@ void GraphWidget::zoomOut()
 {
     scaleView(1 / qreal(1.2));
 }
+

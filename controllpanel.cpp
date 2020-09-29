@@ -1,6 +1,5 @@
 #include "controllpanel.h"
 #include "graphwidget.h"
-#include "drawer.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>

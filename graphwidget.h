@@ -2,8 +2,8 @@
 #define GRAPHWIDGET_H
 
 #include <QGraphicsView>
+
 #include "model.h"
-#include "drawer.h"
 
 class ViewNode;
 
@@ -14,7 +14,6 @@ class GraphWidget : public QGraphicsView
 public:
     GraphWidget(QWidget *parent = nullptr);
 
-    void drawModel();
     void changeModel(ModelType type);
     void readData();
     void clear();
@@ -36,7 +35,6 @@ protected:
     void drawBackground(QPainter *painter, const QRectF &rect) override;
 
     void scaleView(qreal scaleFactor);
-
 
 private:
     int timerId = 0;

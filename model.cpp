@@ -83,7 +83,7 @@ ModelType TreeModel::getType() { return type; }
  * Implementations BinaryTreeNode
  */
 
-//WARNING must be removed or implement
+//WARNING  must be removed or implement
 void BinaryTreeNode::connect(BinaryTreeNode *parent, BinaryTreeNode *child)
 {
     parent->setParent(child);
@@ -109,21 +109,18 @@ void BinaryTreeNode::setParent(ModelItem *pparent)
 {
     static int shift = 200;
     BinaryTreeNode* node = static_cast<BinaryTreeNode*>(pparent);
-//    ViewNode* vself = static_cast<ViewNode*>(this);
     BinaryTreeNode* vself = this;
-//    ViewNode* vparent = dynamic_cast<ViewNode*>(pparent);
     BinaryTreeNode* vparent = static_cast<BinaryTreeNode*>(pparent);
-    addToGraph(new ViewEdge(vself, vparent));
-    if (node->level == 1) {
-        vparent->setY(-200);
-    }
 
-    if (value < pparent->getValue()) {
+    addToGraph(new ViewEdge(vself, vparent));
+
+    if (node->level == 1)
+        vparent->setY(-200);
+    if (value < pparent->getValue())
         vself->setX(vparent->x() - (shift / (level - 1)));
-    }
-    if (value >= pparent->getValue()) {
+    if (value >= pparent->getValue())
         vself->setX(vparent->x() + (shift / (level - 1)));
-    }
+
     vself->setY(vparent->y()+ vself->getHeight());
 
     parent = node;

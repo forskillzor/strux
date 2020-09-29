@@ -82,6 +82,8 @@ protected:
 
 class BinaryTreeNode : public ViewNode, public ModelItem
 {
+//    Q_OBJECT
+//    Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 public:
     static void connect(BinaryTreeNode* parent, BinaryTreeNode* child);
     BinaryTreeNode(int val, GraphWidget* pwidget);

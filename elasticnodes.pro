@@ -2,14 +2,12 @@ QT += widgets
 
 HEADERS += \
         controllpanel.h \
-        drawer.h \
         graphwidget.h \
         model.h \
         view.h
 
 SOURCES += \
         controllpanel.cpp \
-        drawer.cpp \
         graphwidget.cpp \
         main.cpp \
         model.cpp \

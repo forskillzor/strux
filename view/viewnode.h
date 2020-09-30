@@ -54,6 +54,8 @@ private:
 
     QPropertyAnimation* animation;
     QPropertyAnimation* scaleAnimation;
+
+    Qt::GlobalColor background;
 public slots:
     void startAnimation();
 signals:

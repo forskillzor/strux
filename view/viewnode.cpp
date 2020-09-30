@@ -12,12 +12,13 @@
 ViewNode::ViewNode(int val, GraphWidget* pwidget)
     : label(QString::number(val)), graph(pwidget), width(40), height(40)
 {
-    setFlag(ItemIsMovable);
+    background = Qt::green;
+//    setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setAcceptHoverEvents(true);
-    setZValue(-1);
-    //WARNING graph->scene()->addItem(this);
+    setZValue(1);
+
     graph->scene()->addItem(this);
     hardX = 0;
     hardY = -200;
@@ -35,6 +36,7 @@ ViewNode::ViewNode(int val, GraphWidget* pwidget)
 
     connect(animation, &QAbstractAnimation::finished, [=](){
         this->edgeList.at(0)->setVisible(true);
+        this->background = Qt::white;
     });
 }
 
@@ -82,7 +84,7 @@ void ViewNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     if (option->state & QStyle::State_Sunken)
         painter->setBrush(Qt::red);
     else
-        painter->setBrush(Qt::white);
+        painter->setBrush(background);
 
     // Border
     painter->setPen(QPen(Qt::black, 0));

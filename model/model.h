@@ -49,7 +49,7 @@ class ModelItem
 {
 
 public:
-    static Model* model; // = nullptr;
+    static Model* model;
     virtual ~ModelItem();
     virtual void setParent(ModelItem* pprarent) = 0;
     virtual void addItem(ModelItem* pitem) = 0;
@@ -82,6 +82,7 @@ protected:
 class BinaryTreeNode : public ViewNode, public ModelItem
 {
 public:
+
     BinaryTreeNode(int val, GraphWidget* pwidget);
     ~BinaryTreeNode() override;
     void setParent(ModelItem *prarent) override;

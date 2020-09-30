@@ -7,10 +7,12 @@
 
 #include "view.h"
 #include "graphwidget.h"
+#include "viewnode.h"
 
 ViewEdge::ViewEdge(ViewNode *sourceNode, ViewNode *destNode)
     : source(sourceNode), dest(destNode)
 {
+    setVisible(false);
     setAcceptedMouseButtons(Qt::NoButton);
     source->addEdge(this);
     dest->addEdge(this);
@@ -89,101 +91,3 @@ void ViewEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
     painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 }
-
-ViewNode::ViewNode(int val, GraphWidget* pwidget)
-    : label(QString::number(val)), graph(pwidget), width(40), height(40)
-{
-
-    setFlag(ItemIsMovable);
-    setFlag(ItemSendsGeometryChanges);
-    setCacheMode(DeviceCoordinateCache);
-    setAcceptHoverEvents(true);
-    setZValue(-1);
-    //WARNING graph->scene()->addItem(this);
-    graph->scene()->addItem(this);
-}
-
-void ViewNode::addEdge(ViewEdge *edge)
-{
-    edgeList << edge;
-    edge->adjust();
-}
-
-QVector<ViewEdge *> ViewNode::edges() const
-{
-    return edgeList;
-}
-
-QRectF ViewNode::boundingRect() const
-{
-    qreal adjust = 2;
-    return QRectF( -(width/2) - adjust, -(height/2) - adjust, (width+3) + adjust, (height+3) + adjust);
-}
-
-QPainterPath ViewNode::shape() const
-{
-    QPainterPath path;
-    path.addEllipse(-(width/2), -(height/2), width, height);
-    return path;
-}
-
-void ViewNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
-{
-    // Shadow
-//    painter->setPen(Qt::NoPen);
-//    painter->setBrush(Qt::darkGray);
-//    painter->drawEllipse(-10, -10, 25, 25);
-
-    // Backgound
-    if (option->state & QStyle::State_Sunken)
-        painter->setBrush(Qt::red);
-    else
-        painter->setBrush(Qt::white);
-
-    // Border
-    painter->setPen(QPen(Qt::black, 0));
-    painter->drawEllipse(-(width/2), -(height/2), width, height);
-
-    // Print Font Text
-    QFont number = painter->font();
-    number.setBold(true);
-    number.setPointSize(12);
-    number.setHintingPreference(QFont::PreferFullHinting);
-    painter->setFont(number);
-    painter->setPen(Qt::black);
-    painter->drawText(this->boundingRect(),Qt::AlignCenter, label);
-    //
-}
-
-void ViewNode::addToGraph(QGraphicsItem *item)
-{
-    graph->scene()->addItem(item);
-}
-
-QVariant ViewNode::itemChange(GraphicsItemChange change, const QVariant &value)
-{
-    switch (change) {
-    case ItemPositionHasChanged:
-        for (ViewEdge *edge : qAsConst(edgeList))
-            edge->adjust();
-//        graph->itemMoved();
-        break;
-    default:
-        break;
-    };
-
-    return QGraphicsItem::itemChange(change, value);
-}
-
-void ViewNode::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-    update();
-    QGraphicsItem::mousePressEvent(event);
-}
-
-void ViewNode::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    update();
-    QGraphicsItem::mouseReleaseEvent(event);
-}
-

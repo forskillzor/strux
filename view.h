@@ -11,8 +11,6 @@ class ViewNode;
 class ViewEdge;
 class GraphWidget;
 
-class ViewNode;
-
 class ViewEdge : public QGraphicsItem
 {
 public:
@@ -38,43 +36,5 @@ private:
     qreal arrowSize = 5;
 };
 
-class ViewNode : public QGraphicsItem
-{
-public:
-    ViewNode(int val, GraphWidget* pwidget);
-
-    QString label;
-
-    void addEdge(ViewEdge *edge);
-    QVector<ViewEdge *> edges() const;
-
-    enum { Type = UserType + 1 };
-    int type() const override { return Type; }
-
-    QRectF boundingRect() const override;
-    QPainterPath shape() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-
-    void addToGraph(QGraphicsItem* item);
-
-    int getWidth() { return width; }
-    int getHeight() { return height; }
-
-    void setWidth(int w) { width = w; }
-    void setHeight(int h) { height = h; }
-
-protected:
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
-
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-
-private:
-    QVector<ViewEdge *> edgeList;
-    QPointF newPos;
-    GraphWidget *graph;
-    int width;
-    int height;
-};
 
 #endif // NODE_H

@@ -51,8 +51,8 @@ ControlPanel::ControlPanel(QApplication *app) : QWidget(nullptr), application(ap
     // CONNECTIONS
 
     connect(applyButton, &QPushButton::clicked, this, &ControlPanel::apply);
-    connect(quitButton, &QPushButton::clicked, qApp, &QCoreApplication::quit);
     connect(resetButton, &QPushButton::clicked, this, &ControlPanel::clear);
+    connect(quitButton, &QPushButton::clicked, qApp, &QCoreApplication::quit);
 //    connect(listWidget, &QListWidget::itemClicked, this, &ControlPanel::changeModel);
 }
 

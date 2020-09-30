@@ -7,9 +7,9 @@
 #include <QObject>
 #include <QVector>
 
-#include "graphwidget.h"
-#include "controllpanel.h"
-#include "model.h"
+#include "widgets/graphwidget.h"
+#include "widgets/controllpanel.h"
+#include "model/model.h"
 
 int main(int argc, char **argv)
 {

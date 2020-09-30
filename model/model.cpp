@@ -1,7 +1,7 @@
 #include <QDebug>
 
 #include "model.h"
-#include "view.h"
+#include "view/view.h"
 
 /*
  * Factory
@@ -11,6 +11,7 @@ Model::Model(GraphWidget* pwidget)
     :graph(pwidget)
 {
     inputData = generateData();
+    ModelItem::model = this;
 }
 
 Model* Model::createModel(ModelType type, GraphWidget* pwidget)
@@ -35,6 +36,8 @@ QVector<int>* Model::generateData()
     return result;
 }
 
+Model* ModelItem::model = nullptr;
+
 ModelItem *Model::createItem(int value)
 {
     switch (type) {
@@ -43,6 +46,7 @@ ModelItem *Model::createItem(int value)
     case ModelType::Tree:
         return new BinaryTreeNode(value, graph);
     }
+    return nullptr;
 }
 
 void Model::readData(QVector<int>* pdata )
@@ -77,9 +81,6 @@ void TreeModel::addItem(ModelItem *item)
 
 void TreeModel::removeItem() { }
 
-ModelItem *TreeModel::getRoot() { return root; }
-
-ModelType TreeModel::getType() { return type; }
 
 /*
  * Implementations BinaryTreeNode
@@ -89,11 +90,6 @@ BinaryTreeNode::BinaryTreeNode(int val, GraphWidget* pwidget)
     : ViewNode(val, pwidget), ModelItem()
 {
     value = val;
-//    QPropertyAnimation animation(this, "position");
-//    animation.setDuration(1000);
-//    animation.setStartValue(QPointF());
-//    animation.setStartValue(QPointF());
-//    animation.start();
 }
 
 BinaryTreeNode::~BinaryTreeNode()

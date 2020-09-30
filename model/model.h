@@ -5,7 +5,7 @@
 #include <QRandomGenerator>
 #include <QTime>
 
-#include "viewnode.h"
+#include "view/viewnode.h"
 
 class Model;
 enum class ModelType { Empty = 0, Tree };
@@ -33,8 +33,8 @@ public:
     virtual ModelItem* createItem(int value);
     virtual void addItem(ModelItem *node) = 0;
     virtual void removeItem() = 0;
-    virtual ModelItem* getRoot() = 0;
-    virtual ModelType getType() = 0;
+    ModelItem* getRoot() { return root; }
+    ModelType getType() { return type; }
     void readData(QVector<int>* pdata);
     void clear();
     QVector<int>* inputData;
@@ -49,6 +49,7 @@ class ModelItem
 {
 
 public:
+    static Model* model; // = nullptr;
     virtual ~ModelItem();
     virtual void setParent(ModelItem* pprarent) = 0;
     virtual void addItem(ModelItem* pitem) = 0;
@@ -69,8 +70,6 @@ public:
     explicit TreeModel(GraphWidget* pwidget);
     void addItem(ModelItem *node) override;
     void removeItem() override;
-    ModelItem* getRoot() override;
-    ModelType getType() override;
 
 protected:
     BinaryTreeNode *root = nullptr;
@@ -82,8 +81,6 @@ protected:
 
 class BinaryTreeNode : public ViewNode, public ModelItem
 {
-//    Q_OBJECT
-//    Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 public:
     BinaryTreeNode(int val, GraphWidget* pwidget);
     ~BinaryTreeNode() override;

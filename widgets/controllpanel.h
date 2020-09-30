@@ -7,7 +7,7 @@
 #include <QButtonGroup>
 #include <QListWidget>
 
-#include "model.h"
+#include "model/model.h"
 
 class GraphWidget;
 

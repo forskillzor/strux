@@ -5,9 +5,9 @@
 #include <QRandomGenerator>
 
 #include "viewnode.h"
-#include "graphwidget.h"
+#include "widgets/graphwidget.h"
 #include "view.h"
-#include "model.h"
+#include "model/model.h"
 
 ViewNode::ViewNode(int val, GraphWidget* pwidget)
     : label(QString::number(val)), graph(pwidget), width(40), height(40)

@@ -4,8 +4,8 @@
 #include <QGraphicsItem>
 #include <QVector>
 #include <QString>
-#include <QPropertyAnimation>
 #include <QObject>
+
 
 class ViewNode;
 class ViewEdge;
@@ -36,9 +36,6 @@ private:
     QPointF sourcePoint;
     QPointF destPoint;
     qreal arrowSize = 5;
-
-    //TODO todo animation imp
-    QPropertyAnimation* animation = nullptr;
 };
 
 class ViewNode : public QGraphicsItem

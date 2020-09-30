@@ -4,7 +4,7 @@
 #include <QDebug>
 
 #include "graphwidget.h"
-#include "view.h"
+#include "model.h"
 
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)

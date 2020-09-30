@@ -1,14 +1,12 @@
-#include "view.h"
-#include "graphwidget.h"
-
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
 #include <QtMath>
 #include <QDebug>
-#include <QPropertyAnimation>
-#include <QObject>
+
+#include "view.h"
+#include "graphwidget.h"
 
 ViewEdge::ViewEdge(ViewNode *sourceNode, ViewNode *destNode)
     : source(sourceNode), dest(destNode)

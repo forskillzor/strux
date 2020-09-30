@@ -3,9 +3,9 @@
 
 #include <QGraphicsView>
 
-#include "model.h"
-
 class ViewNode;
+class Model;
+enum class ModelType;
 
 class GraphWidget : public QGraphicsView
 {

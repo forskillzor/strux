@@ -5,12 +5,19 @@
 #include <QRandomGenerator>
 
 #include "viewnode.h"
-#include "widgets/graphwidget.h"
-#include "view.h"
-#include "model/model.h"
+#include "../widgets/graphwidget.h"
+#include "viewedge.h"
+#include "../model/model.h"
 
-ViewNode::ViewNode(int val, GraphWidget* pwidget)
-    : label(QString::number(val)), graph(pwidget), width(40), height(40)
+QGraphicsScene* ViewNode::scene = nullptr;
+
+void ViewNode::setScene(QGraphicsScene *pscene)
+{
+    scene = pscene;
+}
+
+ViewNode::ViewNode(int val)
+    : label(QString::number(val)), width(40), height(40)
 {
     background = Qt::green;
 //    setFlag(ItemIsMovable);
@@ -19,7 +26,8 @@ ViewNode::ViewNode(int val, GraphWidget* pwidget)
     setAcceptHoverEvents(true);
     setZValue(1);
 
-    graph->scene()->addItem(this);
+    scene->addItem(this);
+
     hardX = 0;
     hardY = -200;
 
@@ -99,11 +107,6 @@ void ViewNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->setPen(Qt::black);
     painter->drawText(this->boundingRect(),Qt::AlignCenter, label);
     //
-}
-
-void ViewNode::addToGraph(QGraphicsItem *item)
-{
-    graph->scene()->addItem(item);
 }
 
 QVariant ViewNode::itemChange(GraphicsItemChange change, const QVariant &value)

@@ -1,18 +1,20 @@
 QT += widgets
 
 HEADERS += \
+        view/viewitem.h \
         widgets/controllpanel.h \
         widgets/graphwidget.h \
         model/model.h \
-        view/view.h \
+        view/viewedge.h \
         view/viewnode.h
 
 SOURCES += \
+        view/viewitem.cpp \
         widgets/controllpanel.cpp \
         widgets/graphwidget.cpp \
         main.cpp \
         model/model.cpp \
-        view/view.cpp \
+        view/viewedge.cpp \
         view/viewnode.cpp
 
 # install

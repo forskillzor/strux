@@ -2,9 +2,11 @@
 #include <QKeyEvent>
 #include <QRandomGenerator>
 #include <QDebug>
+#include <QGraphicsView>
 
 #include "graphwidget.h"
-#include "model/model.h"
+#include "../model/model.h"
+#include "../view/viewnode.h"
 
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
@@ -21,12 +23,16 @@ GraphWidget::GraphWidget(QWidget *parent)
     scale(qreal(0.8), qreal(0.8));
     setMinimumSize(400, 400);
     setWindowTitle(tr("Elastic Nodes"));
+
+    // ViewNode::addScene(scene());
+    ViewNode::setScene(scene());
 }
 
 //WARNING what is?
 void GraphWidget::changeModel(ModelType type)
 {
     model = Model::createModel(type, this);
+    //TODO complete this feature to FACTORY "static method"
 }
 
 void GraphWidget::readData()
@@ -120,12 +126,12 @@ void GraphWidget::wheelEvent(QWheelEvent *event)
 
 void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    QGraphicsItem* item = itemAt(event->x(), event->y());
-    if (item) {
-        ViewNode* node = static_cast<ViewNode*>(item);
+//    QGraphicsItem* item = itemAt(event->x(), event->y());
+//    if (item) {
+//        ViewNode* node = static_cast<ViewNode*>(item);
 //        BinaryTreeNode* btnode = static_cast<BinaryTreeNode*>(item);
 //        qDebug() << node->label << " " << btnode->level;
-    }
+//    }
 }
 
 void GraphWidget::drawBackground(QPainter *painter, const QRectF &rect)

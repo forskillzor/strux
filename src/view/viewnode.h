@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QGraphicsItem>
 
-class GraphWidget;
 class ViewEdge;
 class QPropertyAnimation;
 
@@ -14,7 +13,10 @@ class ViewNode : public QObject, public QGraphicsItem
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
     Q_PROPERTY(qreal scale READ scale WRITE setScale);
 public:
-    explicit ViewNode(int val, GraphWidget* pwidget);
+    static QGraphicsScene* scene;
+    static void setScene(QGraphicsScene *value);
+
+    explicit ViewNode(int val);
 
     QString label;
 
@@ -28,10 +30,8 @@ public:
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    void addToGraph(QGraphicsItem* item);
-
-    int getWidth() { return width; }
-    int getHeight() { return height; }
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
 
     void setWidth(int w) { width = w; }
     void setHeight(int h) { height = h; }
@@ -48,7 +48,6 @@ protected:
 private:
     QVector<ViewEdge *> edgeList;
     QPointF newPos;
-    GraphWidget *graph;
     int width;
     int height;
 

@@ -1,11 +1,9 @@
 #include <QDebug>
 
 #include "model.h"
-#include "view/view.h"
-
-/*
- * Factory
- */
+#include "../view/viewedge.h"
+#include "../widgets/graphwidget.h"
+#include "../view/viewnode.h"
 
 Model::Model(GraphWidget* pwidget)
     :graph(pwidget)
@@ -13,6 +11,10 @@ Model::Model(GraphWidget* pwidget)
     inputData = generateData();
     ModelItem::model = this;
 }
+
+/*
+ * Factory
+ */
 
 Model* Model::createModel(ModelType type, GraphWidget* pwidget)
 {
@@ -44,7 +46,7 @@ ModelItem *Model::createItem(int value)
     case ModelType::Empty:
         break;
     case ModelType::Tree:
-        return new BinaryTreeNode(value, graph);
+        return new BinaryTreeNode(value);
     }
     return nullptr;
 }
@@ -75,7 +77,7 @@ void TreeModel::addItem(ModelItem *item)
         if (root)
         root->addItem(item);
     else {
-        root = static_cast<BinaryTreeNode*>(item);
+        root = item;
     }
 }
 
@@ -86,8 +88,8 @@ void TreeModel::removeItem() { }
  * Implementations BinaryTreeNode
  */
 
-BinaryTreeNode::BinaryTreeNode(int val, GraphWidget* pwidget)
-    : ViewNode(val, pwidget), ModelItem()
+BinaryTreeNode::BinaryTreeNode(int val)
+    : ModelItem()
 {
     value = val;
 }
@@ -96,30 +98,9 @@ BinaryTreeNode::~BinaryTreeNode()
 {
     delete this;
 }
-
+//WARNING draw logic move from here
 void BinaryTreeNode::setParent(ModelItem *pparent)
 {
-    static int shift = 200;
-    BinaryTreeNode* node = static_cast<BinaryTreeNode*>(pparent);
-    BinaryTreeNode* vself = this;
-    BinaryTreeNode* vparent = static_cast<BinaryTreeNode*>(pparent);
-    ViewNode* vvparent = dynamic_cast<ViewNode*>(vparent);
-    ViewNode* vvself = dynamic_cast<ViewNode*>(vself);
-
-    addToGraph(new ViewEdge(vself, vparent));
-    connect(vvparent, SIGNAL(animationFinished()), vvself, SLOT(startAnimation()));
-
-    if (node->level == 1)
-        vparent->setY(-200);
-    if (value < pparent->getValue())
-        vself->hardX = (vparent->hardX - (shift / (level - 1)));
-    if (value >= pparent->getValue())
-        vself->hardX = (vparent->hardX + (shift / (level - 1)));
-
-    vself->hardY = (vparent->hardY + vself->getHeight());
-
-    parent = node;
-    startAnimation();
 }
 
 void BinaryTreeNode::addItem(ModelItem *item)

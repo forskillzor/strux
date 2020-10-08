@@ -4,10 +4,11 @@
 #include <QVector>
 #include <QRandomGenerator>
 #include <QTime>
+#include <QGraphicsScene>
 
-#include "view/viewnode.h"
+#include "../model/model.h"
+#include "../view/viewnode.h"
 
-class Model;
 enum class ModelType { Empty = 0, Tree };
 
 class ModelItem;
@@ -56,6 +57,7 @@ public:
     virtual void removeItem() = 0;
     virtual int getValue() = 0;
     virtual void setValue(int val) = 0;
+
 protected:
     int value;
 };
@@ -70,20 +72,18 @@ public:
     explicit TreeModel(GraphWidget* pwidget);
     void addItem(ModelItem *node) override;
     void removeItem() override;
-
-protected:
-    BinaryTreeNode *root = nullptr;
 };
 
 /*
  * Implementations BinaryTree Node
  */
 
-class BinaryTreeNode : public ViewNode, public ModelItem
+//TODO inheritance QObject and other features
+class BinaryTreeNode : public ModelItem
 {
 public:
 
-    BinaryTreeNode(int val, GraphWidget* pwidget);
+    BinaryTreeNode(int val);
     ~BinaryTreeNode() override;
     void setParent(ModelItem *prarent) override;
     void addItem(ModelItem *node) override;

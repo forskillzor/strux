@@ -1,15 +1,11 @@
 
 #include <QApplication>
-#include <QTime>
 #include <QMainWindow>
 #include <QHBoxLayout>
-#include <QPushButton>
-#include <QObject>
 #include <QVector>
 
 #include "widgets/graphwidget.h"
 #include "widgets/controllpanel.h"
-#include "model/model.h"
 
 int main(int argc, char **argv)
 {

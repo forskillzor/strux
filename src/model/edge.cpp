@@ -5,9 +5,9 @@
 #include <QtMath>
 #include <QDebug>
 
-#include "viewedge.h"
+#include "edge.h"
 #include "../widgets/graphwidget.h"
-#include "viewnode.h"
+#include "node.h"
 
 ViewEdge::ViewEdge(ViewNode *sourceNode, ViewNode *destNode)
     : source(sourceNode), dest(destNode)

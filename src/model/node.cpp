@@ -4,9 +4,9 @@
 #include <QDebug>
 #include <QRandomGenerator>
 
-#include "viewnode.h"
+#include "node.h"
 #include "../widgets/graphwidget.h"
-#include "viewedge.h"
+#include "edge.h"
 #include "../model/model.h"
 
 QGraphicsScene* ViewNode::scene = nullptr;

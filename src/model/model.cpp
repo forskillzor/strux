@@ -1,9 +1,9 @@
 #include <QDebug>
 
 #include "model.h"
-#include "../view/viewedge.h"
 #include "../widgets/graphwidget.h"
-#include "../view/viewnode.h"
+#include "../model/node.h"
+#include "../model/edge.h"
 
 Model::Model(GraphWidget* pwidget)
     :graph(pwidget)

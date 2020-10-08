@@ -6,7 +6,7 @@
 
 #include "graphwidget.h"
 #include "../model/model.h"
-#include "../view/viewnode.h"
+#include "../model/node.h"
 
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)

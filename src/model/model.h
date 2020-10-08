@@ -6,8 +6,7 @@
 #include <QTime>
 #include <QGraphicsScene>
 
-#include "../model/model.h"
-#include "../view/viewnode.h"
+#include "node.h"
 
 enum class ModelType { Empty = 0, Tree };
 

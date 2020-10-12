@@ -1,13 +1,14 @@
-#ifndef VIEWNODE_H
-#define VIEWNODE_H
+#pragma once
 
 #include <QObject>
+#include <QGraphicsObject>
 #include <QGraphicsItem>
+#include "model.h"
 
-class ViewEdge;
+class Edge;
 class QPropertyAnimation;
 
-class ViewNode : public QObject, public QGraphicsItem
+class Node : public QGraphicsObject, public ModelItem
 {
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
@@ -16,15 +17,18 @@ public:
     static QGraphicsScene* scene;
     static void setScene(QGraphicsScene *value);
 
-    explicit ViewNode(int val);
+    explicit Node(int val);
 
-    QString label;
+    void setParent(ModelItem* pparent) override;
+    void addItem(ModelItem* pitem) override;
+    void removeItem() override;
+    int getValue() override { return value; }
+    void setValue(int val) override { value = val; }
 
-    void addEdge(ViewEdge *edge);
-    QVector<ViewEdge *> edges() const;
-
-    enum { Type = UserType + 1 };
     int type() const override { return Type; }
+
+    void addEdge(Edge *edge);
+    QVector<Edge *> edges() const;
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
@@ -36,8 +40,13 @@ public:
     void setWidth(int w) { width = w; }
     void setHeight(int h) { height = h; }
 
-    int hardX;
-    int hardY;
+
+    QString label;
+    enum { Type = UserType + 1 };
+    int hardX = 0;
+    int hardY = 0;
+
+    int level = 1;
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
@@ -46,10 +55,11 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
-    QVector<ViewEdge *> edgeList;
-    QPointF newPos;
     int width;
     int height;
+
+    QVector<Edge *> edgeList;
+    QPointF newPos;
 
     QPropertyAnimation* animation;
     QPropertyAnimation* scaleAnimation;
@@ -61,5 +71,3 @@ signals:
     void animationFinished();
 
 };
-
-#endif // VIEWNODE_H

@@ -4,23 +4,53 @@
 #include <QDebug>
 #include <QRandomGenerator>
 
-#include "node.h"
-#include "../widgets/graphwidget.h"
+#include "widgets/graphwidget.h"
 #include "edge.h"
-#include "../model/model.h"
+#include "node.h"
+#include "model/imp/binarytreenode.h"
 
-QGraphicsScene* ViewNode::scene = nullptr;
+QGraphicsScene* Node::scene = nullptr;
 
-void ViewNode::setScene(QGraphicsScene *pscene)
+void Node::setScene(QGraphicsScene *pscene)
 {
     scene = pscene;
 }
 
-ViewNode::ViewNode(int val)
+void Node::setParent(ModelItem *pparent)
+{
+    qreal shift = 200;
+    BTNode* bparent = dynamic_cast<BTNode*>(pparent);
+    BTNode* bthis = dynamic_cast<BTNode*>(this);
+
+
+    if (bthis->value < bparent->value)
+        hardX = bparent->hardX - (shift/level);
+    if (bthis->value >= bparent->value)
+        hardX = bparent->hardX + (shift/level);
+
+
+    hardY = bparent->hardY + height;
+
+    scene->addItem(new Edge(this, bparent));
+
+    startAnimation();
+}
+
+void Node::addItem(ModelItem *pitem)
+{
+
+}
+
+void Node::removeItem()
+{
+
+}
+
+Node::Node(int val)
     : label(QString::number(val)), width(40), height(40)
 {
     background = Qt::green;
-//    setFlag(ItemIsMovable);
+    setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setAcceptHoverEvents(true);
@@ -41,53 +71,48 @@ ViewNode::ViewNode(int val)
     scaleAnimation->setEndValue(1);
     scaleAnimation->start();
 
-
     connect(animation, &QAbstractAnimation::finished, [=](){
         this->edgeList.at(0)->setVisible(true);
         this->background = Qt::white;
     });
 }
 
-void ViewNode::startAnimation()
+void Node::startAnimation()
 {
     animation->setKeyValueAt(0, QPointF(0, 0));
     animation->setKeyValueAt(0.9, QPointF(0, 0));
     animation->setKeyValueAt(1, QPointF(hardX, hardY));
+    qDebug() << "hard x: " << hardX << " hard y: " << hardY;
     animation->setEasingCurve(QEasingCurve::Type::OutCirc);
     animation->start();
 }
 
-void ViewNode::addEdge(ViewEdge *edge)
+void Node::addEdge(Edge *edge)
 {
     edgeList << edge;
     edge->adjust();
 }
 
-QVector<ViewEdge *> ViewNode::edges() const
+QVector<Edge *> Node::edges() const
 {
     return edgeList;
 }
 
-QRectF ViewNode::boundingRect() const
+QRectF Node::boundingRect() const
 {
     qreal adjust = 2;
     return QRectF( -(width/2) - adjust, -(height/2) - adjust, (width+3) + adjust, (height+3) + adjust);
 }
 
-QPainterPath ViewNode::shape() const
+QPainterPath Node::shape() const
 {
     QPainterPath path;
     path.addEllipse(-(width/2), -(height/2), width, height);
     return path;
 }
 
-void ViewNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
+void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
 {
-    // Shadow
-//    painter->setPen(Qt::NoPen);
-//    painter->setBrush(Qt::darkGray);
-//    painter->drawEllipse(-10, -10, 25, 25);
-
     // Backgound
     if (option->state & QStyle::State_Sunken)
         painter->setBrush(Qt::red);
@@ -109,11 +134,11 @@ void ViewNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     //
 }
 
-QVariant ViewNode::itemChange(GraphicsItemChange change, const QVariant &value)
+QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     switch (change) {
     case ItemPositionHasChanged:
-        for (ViewEdge *edge : qAsConst(edgeList))
+        for (Edge *edge : qAsConst(edgeList))
             edge->adjust();
 //        graph->itemMoved();
         break;
@@ -124,13 +149,13 @@ QVariant ViewNode::itemChange(GraphicsItemChange change, const QVariant &value)
     return QGraphicsItem::itemChange(change, value);
 }
 
-void ViewNode::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
     QGraphicsItem::mousePressEvent(event);
 }
 
-void ViewNode::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
     QGraphicsItem::mouseReleaseEvent(event);

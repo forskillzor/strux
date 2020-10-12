@@ -1,5 +1,4 @@
-#ifndef NODE_H
-#define NODE_H
+#pragma once
 
 #include <QGraphicsItem>
 #include <QVector>
@@ -7,17 +6,17 @@
 #include <QObject>
 
 
-class ViewNode;
-class ViewEdge;
+class Node;
+class Edge;
 class GraphWidget;
 
-class ViewEdge : public QGraphicsItem
+class Edge : public QGraphicsItem
 {
 public:
-    ViewEdge(ViewNode *sourceNode, ViewNode *destNode);
+    Edge(Node *sourceNode, Node *destNode);
 
-    ViewNode *sourceNode() const;
-    ViewNode *destNode() const;
+    Node *sourceNode() const;
+    Node *destNode() const;
 
     void adjust();
 
@@ -29,12 +28,9 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
-    ViewNode *source, *dest;
+    Node *source, *dest;
 
     QPointF sourcePoint;
     QPointF destPoint;
     qreal arrowSize = 5;
 };
-
-
-#endif // NODE_H

@@ -1,12 +1,10 @@
 #include <QDebug>
 
 #include "model.h"
-#include "../widgets/graphwidget.h"
-#include "../model/node.h"
-#include "../model/edge.h"
+#include "model/imp/binarytreenode.h"
+#include "model/imp/treemodel.h"
 
-Model::Model(GraphWidget* pwidget)
-    :graph(pwidget)
+Model::Model()
 {
     inputData = generateData();
     ModelItem::model = this;
@@ -16,13 +14,13 @@ Model::Model(GraphWidget* pwidget)
  * Factory
  */
 
-Model* Model::createModel(ModelType type, GraphWidget* pwidget)
+Model* Model::createModel(ModelType type)
 {
     switch (type) {
         case ModelType::Empty:
             return nullptr;
         case ModelType::Tree:
-            return new TreeModel(pwidget);
+            return new TreeModel;
     }
 }
 
@@ -46,7 +44,7 @@ ModelItem *Model::createItem(int value)
     case ModelType::Empty:
         break;
     case ModelType::Tree:
-        return new BinaryTreeNode(value);
+        return new BTNode(value);
     }
     return nullptr;
 }
@@ -64,74 +62,4 @@ void Model::clear()
 ModelItem::~ModelItem()
 {
     delete this;
-}
-
-/*
- *  Implementations TreeModel
- */
-
-TreeModel::TreeModel(GraphWidget* pwidget) : Model(pwidget) { type = ModelType::Tree; }
-
-void TreeModel::addItem(ModelItem *item)
-{
-        if (root)
-        root->addItem(item);
-    else {
-        root = item;
-    }
-}
-
-void TreeModel::removeItem() { }
-
-
-/*
- * Implementations BinaryTreeNode
- */
-
-BinaryTreeNode::BinaryTreeNode(int val)
-    : ModelItem()
-{
-    value = val;
-}
-
-BinaryTreeNode::~BinaryTreeNode()
-{
-    delete this;
-}
-//WARNING draw logic move from here
-void BinaryTreeNode::setParent(ModelItem *pparent)
-{
-}
-
-void BinaryTreeNode::addItem(ModelItem *item)
-{
-    BinaryTreeNode* node = static_cast<BinaryTreeNode*>(item);
-    node->level++;
-
-    if (node->getValue() < value) {
-        if (left) {
-            left->addItem(item);
-        }
-        else {
-            left = node;
-            left->setParent(this);
-            return;
-        }
-    }
-    else if (node->getValue() >= value) {
-        if (right){
-            right->addItem(item);
-        }
-        else {
-            right = node;
-            right->setParent(this);
-            return;
-        }
-    }
-    else
-        ++count;
-}
-
-void BinaryTreeNode::removeItem()
-{
 }

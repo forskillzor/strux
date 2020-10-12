@@ -1,17 +1,13 @@
-#ifndef TREEMODEL_H
-#define TREEMODEL_H
+#pragma once
 
 #include <QVector>
 #include <QRandomGenerator>
 #include <QTime>
 #include <QGraphicsScene>
 
-#include "node.h"
-
 enum class ModelType { Empty = 0, Tree };
 
 class ModelItem;
-class BinaryTreeNode;
 class GraphWidget;
 
 /*
@@ -21,18 +17,19 @@ class GraphWidget;
 class Model
 {
 protected:
-    GraphWidget* graph = nullptr;
     ModelItem *root = nullptr;
     ModelType type = ModelType::Empty;
 
 public:
-    static Model* createModel(ModelType type, GraphWidget* pwidget);
+    static Model* createModel(ModelType type);
 
-    Model(GraphWidget* pwidget);
-    QVector<int>* generateData();
     virtual ModelItem* createItem(int value);
     virtual void addItem(ModelItem *node) = 0;
     virtual void removeItem() = 0;
+    virtual void setRoot(ModelItem* item) = 0;
+
+    Model();
+    QVector<int>* generateData();
     ModelItem* getRoot() { return root; }
     ModelType getType() { return type; }
     void readData(QVector<int>* pdata);
@@ -60,43 +57,3 @@ public:
 protected:
     int value;
 };
-
-/*
- * Implementations BinaryTree Model
- */
-
-class TreeModel : public Model
-{
-public:
-    explicit TreeModel(GraphWidget* pwidget);
-    void addItem(ModelItem *node) override;
-    void removeItem() override;
-};
-
-/*
- * Implementations BinaryTree Node
- */
-
-//TODO inheritance QObject and other features
-class BinaryTreeNode : public ModelItem
-{
-public:
-
-    BinaryTreeNode(int val);
-    ~BinaryTreeNode() override;
-    void setParent(ModelItem *prarent) override;
-    void addItem(ModelItem *node) override;
-    void removeItem() override;
-    int getValue() override { return value; };
-    void setValue(int val) override { value = val; };
-
-    BinaryTreeNode* parent = nullptr;
-    BinaryTreeNode* left = nullptr;
-    BinaryTreeNode* right = nullptr;
-
-    int level = 1;
-    int count;
-};
-
-
-#endif // TREEMODEL_H

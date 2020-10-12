@@ -5,13 +5,13 @@
 #include <QGraphicsView>
 
 #include "graphwidget.h"
-#include "../model/model.h"
-#include "../model/node.h"
+#include "model/model.h"
+#include "model/node.h"
 
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
-    model = Model::createModel(ModelType::Tree, this);
+    model = Model::createModel(ModelType::Tree);
     aScene = new QGraphicsScene(this);
     aScene->setItemIndexMethod(QGraphicsScene::NoIndex);
     aScene->setSceneRect(-400, -400, 800, 800);
@@ -25,13 +25,13 @@ GraphWidget::GraphWidget(QWidget *parent)
     setWindowTitle(tr("Elastic Nodes"));
 
     // ViewNode::addScene(scene());
-    ViewNode::setScene(scene());
+    Node::setScene(scene());
 }
 
 //WARNING what is?
 void GraphWidget::changeModel(ModelType type)
 {
-    model = Model::createModel(type, this);
+    model = Model::createModel(type);
     //TODO complete this feature to FACTORY "static method"
 }
 
@@ -183,7 +183,7 @@ void GraphWidget::shuffle()
 {
     const QList<QGraphicsItem *> items = scene()->items();
     for (QGraphicsItem *item : items) {
-        if (qgraphicsitem_cast<ViewNode *>(item))
+        if (qgraphicsitem_cast<Node *>(item))
             item->setPos(-150 + QRandomGenerator::global()->bounded(300), -150 + QRandomGenerator::global()->bounded(300));
     }
 }

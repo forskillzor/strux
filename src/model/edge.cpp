@@ -6,10 +6,10 @@
 #include <QDebug>
 
 #include "edge.h"
-#include "../widgets/graphwidget.h"
+#include "widgets/graphwidget.h"
 #include "node.h"
 
-ViewEdge::ViewEdge(ViewNode *sourceNode, ViewNode *destNode)
+Edge::Edge(Node *sourceNode, Node *destNode)
     : source(sourceNode), dest(destNode)
 {
     setVisible(false);
@@ -19,17 +19,17 @@ ViewEdge::ViewEdge(ViewNode *sourceNode, ViewNode *destNode)
     adjust();
 }
 
-ViewNode *ViewEdge::sourceNode() const
+Node *Edge::sourceNode() const
 {
     return source;
 }
 
-ViewNode *ViewEdge::destNode() const
+Node *Edge::destNode() const
 {
     return dest;
 }
 
-void ViewEdge::adjust()
+void Edge::adjust()
 {
     if (!source || !dest)
         return;
@@ -48,7 +48,7 @@ void ViewEdge::adjust()
     }
 }
 
-QRectF ViewEdge::boundingRect() const
+QRectF Edge::boundingRect() const
 {
     if (!source || !dest)
         return QRectF();
@@ -62,7 +62,7 @@ QRectF ViewEdge::boundingRect() const
         .adjusted(-extra, -extra, extra, extra);
 }
 
-void ViewEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     if (!source || !dest)
         return;

@@ -1,9 +1,8 @@
-#ifndef GRAPHWIDGET_H
-#define GRAPHWIDGET_H
+#pragma once
 
 #include <QGraphicsView>
 
-class ViewNode;
+class Node;
 class Model;
 enum class ModelType;
 
@@ -43,5 +42,3 @@ private:
 public:
 
 };
-
-#endif // GRAPHWIDGET_H

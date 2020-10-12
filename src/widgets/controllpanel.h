@@ -1,5 +1,4 @@
-#ifndef APPWIDGET_H
-#define APPWIDGET_H
+#pragma once
 
 #include <QWidget>
 #include <QPushButton>
@@ -34,5 +33,3 @@ private:
 
     QPushButton *quitButton;
 };
-
-#endif // APPWIDGET_H

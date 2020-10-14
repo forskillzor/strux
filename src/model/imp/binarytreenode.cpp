@@ -1,4 +1,7 @@
+#include <QDebug>
+
 #include "binarytreenode.h"
+
 
 BTNode::BTNode(int val)
     :Node(val)
@@ -14,27 +17,21 @@ BTNode::~BTNode()
 void BTNode::addItem(ModelItem *item)
 {
     ++level;
-    BTNode* node = static_cast<BTNode*>(item);
-    node->level++;
 
-    if (node->getValue() < value) {
-        if (left) {
-            left->addItem(item);
-        }
-        else {
-            left = static_cast<BTNode*>(item);
-            left->setParent(this);
-            return;
-        }
+    BTNode* targetNode = selection(item);
+    if (targetNode)
+        targetNode->addItem(item);
+    else {
+        targetNode = static_cast<BTNode*>(item);
+        targetNode->setParent(this);
     }
-    else if (node->getValue() >= value) {
-        if (right){
-            right->addItem(item);
-        }
-        else {
-            right = static_cast<BTNode*>(item);
-            right->setParent(this);
-            return;
-        }
-    }
+}
+
+BTNode* BTNode::selection(ModelItem *item)
+{
+    BTNode* node = static_cast<BTNode*>(item);
+    if (node->value < value)
+        return left;
+    else
+        return right;
 }

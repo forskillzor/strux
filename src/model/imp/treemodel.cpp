@@ -13,7 +13,8 @@ void TreeModel::setRoot(ModelItem *item)
 
 void TreeModel::addItem(ModelItem *item)
 {
-        if (root)
+    Model::addItem(item);
+    if (root)
         root->addItem(item);
     else {
         setRoot(item);

@@ -4,8 +4,9 @@
 #include <QRandomGenerator>
 #include <QTime>
 #include <QGraphicsScene>
+#include <QPropertyAnimation>
 
-enum class ModelType { Empty = 0, Tree };
+enum class ModelType { Empty = 0, Tree, BalancedTree };
 
 class ModelItem;
 class GraphWidget;
@@ -24,7 +25,7 @@ public:
     static Model* createModel(ModelType type);
 
     virtual ModelItem* createItem(int value);
-    virtual void addItem(ModelItem *node) = 0;
+    virtual void addItem(ModelItem *node);
     virtual void removeItem() = 0;
     virtual void setRoot(ModelItem* item) = 0;
 
@@ -53,7 +54,7 @@ public:
     virtual void removeItem() = 0;
     virtual int getValue() = 0;
     virtual void setValue(int val) = 0;
-
-protected:
+    virtual void startAnimation() = 0;
     int value;
+    QPropertyAnimation* moveAnimation = nullptr;
 };

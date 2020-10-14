@@ -1,21 +1,18 @@
-#include <QDebug>
+#include "btnodebalanced.h"
 
-#include "binarytreenode.h"
-
-
-BTNode::BTNode(int val)
+BTNodeBalanced::BTNodeBalanced(int val)
     : Node(val)
 {
 }
 
-BTNode::~BTNode()
+BTNodeBalanced::~BTNodeBalanced()
 {
     delete this;
 }
 
-void BTNode::addItem(ModelItem *item)
+void BTNodeBalanced::addItem(ModelItem *item)
 {
-    BTNode* node = static_cast<BTNode*>(item);
+    BTNodeBalanced* node = static_cast<BTNodeBalanced*>(item);
     ++node->level;
 
     if (item->value < value) {
@@ -34,5 +31,4 @@ void BTNode::addItem(ModelItem *item)
             right->setParent(this);
         }
     }
-
 }

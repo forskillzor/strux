@@ -33,6 +33,7 @@ void Node::setParent(ModelItem *pparent)
 
     scene->addItem(new Edge(this, bparent));
 
+    //WARNING
     startAnimation();
 }
 
@@ -49,6 +50,7 @@ void Node::removeItem()
 Node::Node(int val)
     : label(QString::number(val)), width(40), height(40)
 {
+    value = val;
     background = Qt::green;
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
@@ -61,8 +63,8 @@ Node::Node(int val)
     hardX = 0;
     hardY = -200;
 
-    animation = new QPropertyAnimation(this, "pos");
-    animation->setDuration(1000);
+    moveAnimation = new QPropertyAnimation(this, "pos");
+    moveAnimation->setDuration(1000);
 
     scaleAnimation = new QPropertyAnimation(this, "scale");
     scaleAnimation->setEasingCurve(QEasingCurve::Type::OutCubic);
@@ -71,20 +73,20 @@ Node::Node(int val)
     scaleAnimation->setEndValue(1);
     scaleAnimation->start();
 
-    connect(animation, &QAbstractAnimation::finished, [=](){
-        this->edgeList.at(0)->setVisible(true);
+    connect(moveAnimation, &QAbstractAnimation::finished, [=](){
+        for (auto *item : edgeList)
+            item->setVisible(true);
         this->background = Qt::white;
     });
 }
 
 void Node::startAnimation()
 {
-    animation->setKeyValueAt(0, QPointF(0, 0));
-    animation->setKeyValueAt(0.9, QPointF(0, 0));
-    animation->setKeyValueAt(1, QPointF(hardX, hardY));
-    qDebug() << "hard x: " << hardX << " hard y: " << hardY;
-    animation->setEasingCurve(QEasingCurve::Type::OutCirc);
-    animation->start();
+    moveAnimation->setKeyValueAt(0, QPointF(0, 0));
+    moveAnimation->setKeyValueAt(0.9, QPointF(0, 0));
+    moveAnimation->setKeyValueAt(1, QPointF(hardX, hardY));
+    moveAnimation->setEasingCurve(QEasingCurve::Type::OutCirc);
+    moveAnimation->start();
 }
 
 void Node::addEdge(Edge *edge)

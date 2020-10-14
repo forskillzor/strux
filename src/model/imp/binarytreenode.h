@@ -8,8 +8,7 @@ public:
 
     BTNode(int val);
     ~BTNode() override;
-    void addItem(ModelItem *node) override;
-    BTNode* selection(ModelItem*);
+    void addItem(ModelItem *item) override;
 
     BTNode* parent = nullptr;
     BTNode* left = nullptr;

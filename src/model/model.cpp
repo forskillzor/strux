@@ -3,6 +3,8 @@
 #include "model.h"
 #include "model/imp/binarytreenode.h"
 #include "model/imp/treemodel.h"
+#include "model/imp/treemodelbalanced.h"
+#include "model/imp/btnodebalanced.h"
 
 Model::Model()
 {
@@ -21,6 +23,8 @@ Model* Model::createModel(ModelType type)
             return nullptr;
         case ModelType::Tree:
             return new TreeModel;
+        case ModelType::BalancedTree:
+            return new TreeModelBalanced;
     }
 }
 
@@ -45,8 +49,15 @@ ModelItem *Model::createItem(int value)
         break;
     case ModelType::Tree:
         return new BTNode(value);
+    case ModelType::BalancedTree:
+        return new BTNodeBalanced(value);
     }
     return nullptr;
+}
+
+void Model::addItem(ModelItem *item)
+{
+    item->startAnimation();
 }
 
 void Model::readData(QVector<int>* pdata )

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "model/model.h"
+#include <model/model.h>
 
-class TreeModel : public Model
+class TreeModelBalanced : public Model
 {
 public:
-    explicit TreeModel();
+    explicit TreeModelBalanced();
     void setRoot(ModelItem* item) override;
     void addItem(ModelItem* item) override;
     void removeItem() override;

@@ -25,6 +25,8 @@ public:
     int getValue() override { return value; }
     void setValue(int val) override { value = val; }
 
+    void startAnimation() override;
+
     int type() const override { return Type; }
 
     void addEdge(Edge *edge);
@@ -46,7 +48,7 @@ public:
     int hardX = 0;
     int hardY = 0;
 
-    int level = 1;
+    int level = 0;
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
@@ -61,12 +63,9 @@ private:
     QVector<Edge *> edgeList;
     QPointF newPos;
 
-    QPropertyAnimation* animation;
     QPropertyAnimation* scaleAnimation;
 
     Qt::GlobalColor background;
-public slots:
-    void startAnimation();
 signals:
     void animationFinished();
 

@@ -12,6 +12,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
     model = Model::createModel(ModelType::Tree);
+//    model = Model::createModel(ModelType::BalancedTree);
     aScene = new QGraphicsScene(this);
     aScene->setItemIndexMethod(QGraphicsScene::NoIndex);
     aScene->setSceneRect(-400, -400, 800, 800);

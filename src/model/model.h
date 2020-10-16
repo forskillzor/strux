@@ -56,5 +56,6 @@ public:
     virtual void setValue(int val) = 0;
     virtual void startAnimation() = 0;
     int value;
+    QPointF *coordinate;
     QPropertyAnimation* moveAnimation = nullptr;
 };

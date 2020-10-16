@@ -45,8 +45,6 @@ public:
 
     QString label;
     enum { Type = UserType + 1 };
-    int hardX = 0;
-    int hardY = 0;
 
     int level = 0;
 

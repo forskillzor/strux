@@ -11,6 +11,7 @@
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
+    //TODO Factory Method
     model = Model::createModel(ModelType::Tree);
 //    model = Model::createModel(ModelType::BalancedTree);
     aScene = new QGraphicsScene(this);

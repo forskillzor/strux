@@ -19,21 +19,21 @@ void Node::setScene(QGraphicsScene *pscene)
 void Node::setParent(ModelItem *pparent)
 {
     qreal shift = 200;
-    BTNode* bparent = dynamic_cast<BTNode*>(pparent);
-    BTNode* bthis = dynamic_cast<BTNode*>(this);
 
+    int x,y;
 
-    if (bthis->value < bparent->value)
-        hardX = bparent->hardX - (shift/level);
-    if (bthis->value >= bparent->value)
-        hardX = bparent->hardX + (shift/level);
+    if (value < pparent->value)
+        x = pparent->coordinate->x() - (shift/level);
+    if (this->value >= pparent->value)
+        x = pparent->coordinate->x() + (shift/level);
 
+    y = pparent->coordinate->y() + height;
 
-    hardY = bparent->hardY + height;
+    if (coordinate)
+        delete coordinate;
+    coordinate = new QPointF(x,y);
+    scene->addItem(new Edge(this, static_cast<Node*>(pparent)));
 
-    scene->addItem(new Edge(this, bparent));
-
-    //WARNING
     startAnimation();
 }
 
@@ -52,7 +52,7 @@ Node::Node(int val)
 {
     value = val;
     background = Qt::green;
-    setFlag(ItemIsMovable);
+//    setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setAcceptHoverEvents(true);
@@ -60,8 +60,7 @@ Node::Node(int val)
 
     scene->addItem(this);
 
-    hardX = 0;
-    hardY = -200;
+    coordinate = new QPointF(0, -200);
 
     moveAnimation = new QPropertyAnimation(this, "pos");
     moveAnimation->setDuration(1000);
@@ -84,7 +83,7 @@ void Node::startAnimation()
 {
     moveAnimation->setKeyValueAt(0, QPointF(0, 0));
     moveAnimation->setKeyValueAt(0.9, QPointF(0, 0));
-    moveAnimation->setKeyValueAt(1, QPointF(hardX, hardY));
+    moveAnimation->setKeyValueAt(1, *coordinate);
     moveAnimation->setEasingCurve(QEasingCurve::Type::OutCirc);
     moveAnimation->start();
 }
